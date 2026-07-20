@@ -38,8 +38,7 @@ public class SpawnerManager {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof LocationKey)) return false;
-            LocationKey that = (LocationKey) o;
+            if (!(o instanceof LocationKey that)) return false;
             return x == that.x &&
                     y == that.y &&
                     z == that.z &&

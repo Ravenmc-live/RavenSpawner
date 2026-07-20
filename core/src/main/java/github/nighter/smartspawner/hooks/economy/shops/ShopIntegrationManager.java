@@ -6,6 +6,7 @@ import github.nighter.smartspawner.hooks.economy.shops.providers.economyshopgui.
 import github.nighter.smartspawner.hooks.economy.shops.providers.economyshopgui.ESGUICompatibilityHandler;
 import github.nighter.smartspawner.hooks.economy.shops.providers.shopguiplus.ShopGuiPlusProvider;
 import github.nighter.smartspawner.hooks.economy.shops.providers.shopguiplus.SpawnerHook;
+import github.nighter.smartspawner.hooks.economy.shops.providers.ravensell.RavenSellHook;
 import github.nighter.smartspawner.hooks.economy.shops.providers.zshop.ZShopProvider;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
@@ -81,6 +82,8 @@ public class ShopIntegrationManager {
         }
 
         // registerProviderIfAvailable("ZShop", () -> new ZShopProvider(plugin));
+
+        registerProviderIfAvailable("RavenSell", () -> new RavenSellHook());
     }
 
     private boolean tryRegisterSpecificProvider(String providerName) {
@@ -125,6 +128,9 @@ public class ShopIntegrationManager {
                         return !availableProviders.isEmpty();
                     }
                     break;
+                case "ravensell":
+                    registerProviderIfAvailable("RavenSell", () -> new RavenSellHook());
+                    return !availableProviders.isEmpty();
             }
         } catch (Exception e) {
             plugin.debug("Failed to load specific provider " + providerName + ": " + e.getMessage());

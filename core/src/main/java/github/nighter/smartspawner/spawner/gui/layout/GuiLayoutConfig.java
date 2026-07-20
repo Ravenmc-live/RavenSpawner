@@ -10,7 +10,6 @@ import github.nighter.smartspawner.api.gui.GuiLayoutRegistryImpl;
 import github.nighter.smartspawner.api.gui.GuiLayoutType;
 import github.nighter.smartspawner.api.gui.SpawnerGuiLayoutProvider;
 import github.nighter.smartspawner.spawner.properties.SpawnerData;
-import github.nighter.smartspawner.updates.GuiLayoutUpdater;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -29,7 +28,6 @@ public class GuiLayoutConfig {
 
     private final SmartSpawner plugin;
     private final File layoutsDir;
-    private final GuiLayoutUpdater layoutUpdater;
     private final ExternalGuiLayoutLoader loader;
     private final GuiLayoutRegistryImpl registry;
 
@@ -55,7 +53,6 @@ public class GuiLayoutConfig {
                            GuiLayoutRegistryImpl registry) {
         this.plugin = plugin;
         this.layoutsDir = new File(plugin.getDataFolder(), GUI_LAYOUTS_DIR);
-        this.layoutUpdater = new GuiLayoutUpdater(plugin);
         this.loader = loader;
         this.registry = registry;
         loadLayout();
@@ -64,8 +61,6 @@ public class GuiLayoutConfig {
     public void loadLayout() {
         this.currentLayout = plugin.getConfig().getString("gui_layout", DEFAULT_LAYOUT);
 
-        // Creates missing layout files with a version header and updates existing ones.
-        layoutUpdater.checkAndUpdateLayouts();
 
         this.currentStorageLayout = loadCurrentStorageLayout();
         this.currentMainLayout = loadCurrentMainLayout();

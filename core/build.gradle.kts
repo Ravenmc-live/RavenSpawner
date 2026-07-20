@@ -12,6 +12,7 @@ configurations {
 
 dependencies {
     api(project(":api"))
+    compileOnly(fileTree("libs") { include("*.jar") })
 
     @Suppress("GradleDependency")
     compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
@@ -25,37 +26,13 @@ dependencies {
     compileOnly("com.github.brcdev-minecraft:shopgui-api:3.2.0") {
         exclude(group = "*")
     }
-    compileOnly("com.palmergames.bukkit.towny:towny:0.103.0.7")
-    compileOnly("com.bgsoftware:SuperiorSkyblockAPI:2026.2")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("su.nightexpress.excellenteconomy:ExcellentEconomy:2.8.0")
     compileOnly("su.nightexpress.nightcore:main:2.16.4")
     compileOnly("com.github.Gypopo:EconomyShopGUI-API:1.10.1")
-    compileOnly("world.bentobox:bentobox:3.20.0")
-    compileOnly("io.github.fabiozumbi12.RedProtect:RedProtect-Core:8.1.2") {
-        exclude(group = "*")
-    }
-    compileOnly("io.github.fabiozumbi12.RedProtect:RedProtect-Spigot:8.1.2") {
-        exclude(group = "*")
-    }
-    compileOnly("dev.aurelium:auraskills-api-bukkit:2.3.12")
-    compileOnly("pl.minecodes.plots:plugin-api:4.6.2")
     compileOnly("fr.maxlego08.shop:zshop-api:3.3.4")
     compileOnly("fr.maxlego08.menu:zmenu-api:1.1.1.5")
-
-    implementation("com.github.GriefPrevention:GriefPrevention:18.0.0")
-    implementation("com.github.IncrediblePlugins:LandsAPI:7.25.4")
-    implementation("com.github.Xyness:SimpleClaimSystem-API:v2.5.10")
-    implementation("com.github.Xyness:SimpleClaimSystem:1.13.1")
-    implementation("com.github.Zrips:Residence:6.0.2.3") {
-        exclude(group = "org.bukkit")
-    }
-
-    compileOnly("io.lumine:Mythic-Dist:5.12.1")
-    compileOnly("com.iridium:IridiumSkyblock:4.1.4")
-
-    implementation(platform("com.intellectualsites.bom:bom-newest:1.56"))
-    compileOnly("com.intellectualsites.plotsquared:plotsquared-core")
+    compileOnly(fileTree(mapOf("dir" to rootProject.file("libs"), "include" to listOf("*.jar"))))
 
     compileOnly("org.projectlombok:lombok:1.18.46")
     annotationProcessor("org.projectlombok:lombok:1.18.46")
@@ -183,8 +160,6 @@ tasks.register("generateLanguageChangelog") {
         }
 
         // ── 3b. Resolve the "to" ref: use the version tag if it exists, else main ──
-        //   Tags in this repo have no "v" prefix (e.g. "1.6.2"), so we check
-        //   both the bare version and the v-prefixed form.
         val toRef: String = run {
             listOf(currentVersion, "v$currentVersion").firstOrNull { tag ->
                 try {
@@ -203,13 +178,10 @@ tasks.register("generateLanguageChangelog") {
         println("[changelog] Compare range: $githubVersion...$toRef")
 
         // ── 4. YAML flat-key extractor ───────────────────────────────────────
-        //  Returns map of  dotPath → Pair(1-based lineNumber, rawValue)
-        //  Handles comments, blank lines, list items, and block scalars.
         fun extractKeys(yaml: String): LinkedHashMap<String, Pair<Int, String>> {
             val result = LinkedHashMap<String, Pair<Int, String>>()
-            // stack entries: indent-level → key-name
             val stack  = ArrayDeque<Pair<Int, String>>()
-            var blockScalarIndent = -1   // >=0 while inside a | or > scalar
+            var blockScalarIndent = -1
 
             yaml.lines().forEachIndexed { idx, raw ->
                 val lineNo  = idx + 1
@@ -218,13 +190,11 @@ tasks.register("generateLanguageChangelog") {
 
                 val indent = raw.length - trimmed.length
 
-                // Leaving a block scalar when indentation returns to its level
                 if (blockScalarIndent >= 0) {
                     if (indent > blockScalarIndent) return@forEachIndexed
                     else blockScalarIndent = -1
                 }
 
-                // List items are not individually tracked as keys
                 if (trimmed.startsWith("- ") || trimmed == "-") return@forEachIndexed
 
                 val colonIdx = trimmed.indexOf(':')
@@ -235,13 +205,11 @@ tasks.register("generateLanguageChangelog") {
 
                 var value = trimmed.substring(colonIdx + 1).trim()
 
-                // Strip trailing inline comment (only outside quoted values)
                 if (!value.startsWith('"') && !value.startsWith('\'')) {
                     val ci = value.indexOf(" #")
                     if (ci >= 0) value = value.substring(0, ci).trim()
                 }
 
-                // Pop stack entries whose indent >= current level
                 while (stack.isNotEmpty() && stack.last().first >= indent) stack.removeLast()
 
                 val path = if (stack.isEmpty()) key
@@ -260,7 +228,6 @@ tasks.register("generateLanguageChangelog") {
             return result
         }
 
-        // Truncate long values for display
         fun truncate(s: String, max: Int = 70) = if (s.length > max) s.take(max) + "…" else s
 
         // ── 5. Fetch the old language files from GitHub and diff ─────────────
@@ -275,7 +242,6 @@ tasks.register("generateLanguageChangelog") {
             if (conn.responseCode == 200) conn.inputStream.bufferedReader().readText() else null
         } catch (e: Exception) { null }
 
-        // Per-file diffs: maps file name → pre-formatted entry lines
         val addedPerFile   = mutableMapOf<String, List<String>>()
         val changedPerFile = mutableMapOf<String, List<String>>()
         val removedPerFile = mutableMapOf<String, List<String>>()
@@ -319,7 +285,6 @@ tasks.register("generateLanguageChangelog") {
         }
 
         // ── 6. Build the CHANGELOG entry ─────────────────────────────────────
-        // perFile values are already fully-formatted lines ("      - key (Lnn): value")
         fun formatSection(label: String, perFile: Map<String, List<String>>): String {
             if (perFile.isEmpty()) return "  $label:\n    (none)"
             val sb = StringBuilder("  $label:\n")

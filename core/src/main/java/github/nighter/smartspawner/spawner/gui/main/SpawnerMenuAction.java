@@ -4,7 +4,6 @@ import github.nighter.smartspawner.SmartSpawner;
 import github.nighter.smartspawner.api.events.SpawnerExpClaimEvent;
 import github.nighter.smartspawner.api.gui.GuiLayoutType;
 import github.nighter.smartspawner.config.Config;
-import github.nighter.smartspawner.hooks.rpg.AuraSkillsIntegration;
 import github.nighter.smartspawner.language.LanguageManager;
 import github.nighter.smartspawner.language.MessageService;
 import github.nighter.smartspawner.spawner.gui.layout.GuiLayout;
@@ -48,7 +47,6 @@ public class SpawnerMenuAction implements Listener {
     private final SpawnerGuiViewManager spawnerGuiViewManager;
     private final LanguageManager languageManager;
     private final MessageService messageService;
-    private AuraSkillsIntegration auraSkills;
 
     public SpawnerMenuAction(SmartSpawner plugin) {
         this.plugin = plugin;
@@ -58,12 +56,8 @@ public class SpawnerMenuAction implements Listener {
         this.spawnerGuiViewManager = plugin.getSpawnerGuiViewManager();
         this.languageManager = plugin.getLanguageManager();
         this.messageService = plugin.getMessageService();
-        this.auraSkills = plugin.getIntegrationManager().getAuraSkillsIntegration();
     }
 
-    public void reload() {
-        this.auraSkills = plugin.getIntegrationManager().getAuraSkillsIntegration();
-    }
 
     @EventHandler
     public void onMenuClick(InventoryClickEvent event) {
@@ -327,9 +321,6 @@ public class SpawnerMenuAction implements Listener {
             exp -= expUsedForMending;
         }
 
-        if (auraSkills != null) {
-            giveAuraSkillsXp(player, spawner, initialExp);
-        }
 
         if (exp > 0) {
             if (SpawnerExpClaimEvent.getHandlerList().getRegisteredListeners().length != 0) {
@@ -379,10 +370,7 @@ public class SpawnerMenuAction implements Listener {
             exp -= expUsedForMending;
         }
 
-        // Give AuraSkills XP if integration is enabled
-        if (auraSkills != null) {
-            giveAuraSkillsXp(player, spawner, initialExp);
-        }
+
 
         // Give remaining exp to player
         if (exp > 0) {
@@ -519,10 +507,7 @@ public class SpawnerMenuAction implements Listener {
             exp -= expUsedForMending;
         }
 
-        // Give AuraSkills XP if integration is enabled
-        if (auraSkills != null) {
-            giveAuraSkillsXp(player, spawner, initialExp);
-        }
+
 
         // Give remaining exp to player
         if (exp > 0) {
@@ -565,28 +550,6 @@ public class SpawnerMenuAction implements Listener {
                 placeholders.put("exp", plugin.getLanguageManager().formatNumber(totalExp));
                 messageService.sendMessage(player, "exp_collected", placeholders);
             }
-        }
-    }
-
-    private void giveAuraSkillsXp(Player player, SpawnerData spawner, long totalExp) {
-        try {
-            if (auraSkills == null || !auraSkills.isEnabled()) {
-                return;
-            }
-
-            // Get the entity type from the spawner
-            EntityType entityType = spawner.getEntityType();
-            if (entityType == null) {
-                plugin.debug("Could not determine entity type for spawner at " + spawner.getSpawnerLocation());
-                return;
-            }
-
-            // Give skill XP based on the entity type and exp amount
-            auraSkills.giveSkillXp(player, entityType, clampLongToInt(totalExp));
-
-        } catch (Exception e) {
-            plugin.getLogger().warning("Error giving AuraSkills XP: " + e.getMessage());
-            plugin.debug("AuraSkills integration error: " + e.toString());
         }
     }
 

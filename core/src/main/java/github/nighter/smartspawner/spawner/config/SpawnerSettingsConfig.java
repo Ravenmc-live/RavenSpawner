@@ -4,7 +4,6 @@ import github.nighter.smartspawner.SmartSpawner;
 import github.nighter.smartspawner.hooks.economy.ItemPriceManager;
 import github.nighter.smartspawner.spawner.lootgen.loot.EntityLootConfig;
 import github.nighter.smartspawner.spawner.lootgen.loot.LootItem;
-import github.nighter.smartspawner.updates.Version;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -77,12 +76,6 @@ public class SpawnerSettingsConfig {
         
         FileConfiguration currentConfig = YamlConfiguration.loadConfiguration(configFile);
         String configVersionStr = currentConfig.getString(CONFIG_VERSION_KEY, "0.0.0");
-        Version configVersion = new Version(configVersionStr);
-        Version currentConfigVersion = new Version(CURRENT_CONFIG_VERSION);
-
-        if (configVersion.compareTo(currentConfigVersion) >= 0) {
-            return;
-        }
         
         plugin.getLogger().info("Updating spawners_settings.yml from version " + configVersionStr + " to " + CURRENT_CONFIG_VERSION);
 

@@ -68,10 +68,6 @@ import github.nighter.smartspawner.spawner.properties.SpawnerData;
 import github.nighter.smartspawner.spawner.sell.SpawnerSellManager;
 import github.nighter.smartspawner.spawner.utils.SpawnerLocationLockManager;
 import github.nighter.smartspawner.spawner.utils.SpawnerTypeChecker;
-import github.nighter.smartspawner.updates.ConfigUpdater;
-import github.nighter.smartspawner.updates.LanguageChangelogUpdater;
-import github.nighter.smartspawner.updates.LanguageUpdater;
-import github.nighter.smartspawner.updates.UpdateChecker;
 import github.nighter.smartspawner.utils.TimeFormatter;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -99,9 +95,7 @@ public class SmartSpawner extends JavaPlugin implements SmartSpawnerPlugin {
 
     // Services
     private TimeFormatter timeFormatter;
-    private ConfigUpdater configUpdater;
     private LanguageManager languageManager;
-    private LanguageUpdater languageUpdater;
     private MessageService messageService;
     private SpawnerSettingsConfig spawnerSettingsConfig;
     private ItemSpawnerSettingsConfig itemSpawnerSettingsConfig;
@@ -153,7 +147,6 @@ public class SmartSpawner extends JavaPlugin implements SmartSpawnerPlugin {
     private SpawnerPlaceListener spawnerPlaceListener;
     private WorldEventHandler worldEventHandler;
     private ItemPriceManager itemPriceManager;
-    private UpdateChecker updateChecker;
     private BrigadierCommandManager brigadierCommandManager;
     private ListSubCommand listSubCommand;
     private UserPreferenceCache userPreferenceCache;
@@ -230,17 +223,12 @@ public class SmartSpawner extends JavaPlugin implements SmartSpawnerPlugin {
         setUpHopperHandler();
         initializeListeners();
         this.apiImpl = new SmartSpawnerAPIImpl(this);
-        this.updateChecker = new UpdateChecker(this);
     }
 
     private void initializeServices() {
         SpawnerTypeChecker.init(this);
         this.timeFormatter = new TimeFormatter(this);
-        this.configUpdater = new ConfigUpdater(this);
-        configUpdater.checkAndUpdateConfig();
         this.languageManager = new LanguageManager(this);
-        this.languageUpdater = new LanguageUpdater(this);
-        new LanguageChangelogUpdater(this).update();
         this.messageService = new MessageService(this, languageManager);
         
         // Initialize new unified spawner settings config (but don't load yet)
@@ -520,16 +508,6 @@ public class SmartSpawner extends JavaPlugin implements SmartSpawnerPlugin {
         metrics.addCustomChart(new AdvancedPie("protection_plugins", () -> {
             Map<String, Integer> map = new HashMap<>();
             if (integrationManager.isHasWorldGuard())        map.put("WorldGuard", 1);
-            if (integrationManager.isHasTowny())             map.put("Towny", 1);
-            if (integrationManager.isHasLands())             map.put("Lands", 1);
-            if (integrationManager.isHasGriefPrevention())   map.put("GriefPrevention", 1);
-            if (integrationManager.isHasSuperiorSkyblock2()) map.put("SuperiorSkyblock2", 1);
-            if (integrationManager.isHasBentoBox())          map.put("BentoBox", 1);
-            if (integrationManager.isHasIridiumSkyblock())   map.put("IridiumSkyblock", 1);
-            if (integrationManager.isHasPlotSquared())       map.put("PlotSquared", 1);
-            if (integrationManager.isHasResidence())         map.put("Residence", 1);
-            if (integrationManager.isHasMinePlots())         map.put("MinePlots", 1);
-            if (integrationManager.isHasSimpleClaimSystem()) map.put("SimpleClaimSystem", 1);
             if (map.isEmpty()) map.put("None", 1);
             return map;
         }));
@@ -576,7 +554,6 @@ public class SmartSpawner extends JavaPlugin implements SmartSpawnerPlugin {
 
         // reload services
         integrationManager.reload();
-        spawnerMenuAction.reload();
         if (spawnerBreakListener != null) {
             spawnerBreakListener.loadConfig();
         }
