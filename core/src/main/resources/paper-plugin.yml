@@ -3,7 +3,7 @@ version: '${version}'
 main: github.nighter.ravenspawners.RavenSpawners
 api-version: '1.21'
 description: "A GUI-based spawner plugin that generates items and experience without spawning mobs"
-authors: [ https://github.com/OpenVdra/RavenSpawners ]
+authors: [ https://github.com/Ravenmc-live/RavenSpawner ]
 website: "https://openvdra.github.io/RavenSpawners/"
 folia-supported: true
 
@@ -87,6 +87,14 @@ dependencies:
       required: false
       join-classpath: true
     Residence:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    FactionsUUID:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    BlockLocker:
       load: BEFORE
       required: false
       join-classpath: true

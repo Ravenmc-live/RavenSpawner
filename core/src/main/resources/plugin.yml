@@ -2,7 +2,7 @@ name: RavenSpawners
 version: '${version}'
 main: github.nighter.ravenspawners.RavenSpawners
 api-version: '1.21'
-authors: [ https://github.com/OpenVdra/RavenSpawners ]
+authors: [ https://github.com/Ravenmc-live/RavenSpawner ]
 folia-supported: true
 softdepend:
   # Bedrock Support Plugins
@@ -13,7 +13,6 @@ softdepend:
   - EconomyShopGUI
   - EconomyShopGUI-Premium
   - ShopGUIPlus
-  - RavenSell
   - zShop
 
   # Utility/Economy Plugins
@@ -22,7 +21,16 @@ softdepend:
 
   # Protection/Region Plugins
   - WorldGuard
-
+  - GriefPrevention
+  - Lands
+  - Towny
+  - SimpleClaimSystem
+  - RedProtect
+  - minePlots
+  - PlotSquared
+  - Residence
+  - FactionsUUID
+  - BlockLocker
 
   # World Management Plugins
   - Multiverse-Core
@@ -32,6 +40,11 @@ softdepend:
   - BentoBox
   - IridiumSkyblock
 
+  # RPG/Skill Plugins
+  - AuraSkills
+
+  #Drops Plugins
+  - MythicMobs
 
 commands:
   ravenspawners:

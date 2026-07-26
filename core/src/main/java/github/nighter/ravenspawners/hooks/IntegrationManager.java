@@ -1,11 +1,23 @@
 package github.nighter.ravenspawners.hooks;
 
+import com.plotsquared.core.PlotAPI;
 import github.nighter.ravenspawners.RavenSpawners;
-import github.nighter.ravenspawners.hooks.bedrock.FloodgateHook;
+import github.nighter.ravenspawners.hooks.drops.MythicMobsHook;
 import github.nighter.ravenspawners.hooks.economy.shops.providers.ravensell.RavenSellHook;
+import github.nighter.ravenspawners.hooks.protections.api.IridiumSkyblock;
+import github.nighter.ravenspawners.hooks.protections.api.Lands;
+import github.nighter.ravenspawners.hooks.protections.api.PlotSquared;
+import github.nighter.ravenspawners.hooks.protections.api.SuperiorSkyblock2;
+import github.nighter.ravenspawners.hooks.rpg.AuraSkillsIntegration;
+import github.nighter.ravenspawners.hooks.bedrock.FloodgateHook;
 import lombok.Getter;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import fr.xyness.SCS.API.SimpleClaimSystemAPI_Provider;
+import fr.xyness.SCS.SimpleClaimSystem;
+import fr.xyness.SimpleClaimSystem.API.SCS_API_Provider;
+import fr.xyness.SimpleClaimSystem.API.SCS_API;
 
 import java.util.logging.Level;
 
@@ -13,10 +25,31 @@ import java.util.logging.Level;
 public class IntegrationManager {
     private final RavenSpawners plugin;
 
+    // Protection plugin flags
+    private boolean hasTowny = false;
+    private boolean hasLands = false;
     private boolean hasWorldGuard = false;
-    private boolean hasFloodgate = false;
+    private boolean hasGriefPrevention = false;
+    private boolean hasSuperiorSkyblock2 = false;
+    private boolean hasBentoBox = false;
+    private boolean hasSimpleClaimSystem = false;
+    private boolean hasSimpleClaimSystem2 = false;
+    private boolean hasRedProtect = false;
+    private boolean hasMinePlots = false;
+    private boolean hasMythicMobs = false;
+    private boolean hasIridiumSkyblock = false;
+    private boolean hasPlotSquared = false;
+    private boolean hasResidence = false;
+    private boolean hasFactions = false;
+    private boolean hasBlockLocker = false;
     private boolean hasRavenSell = false;
 
+    // Integration plugin flags
+    private boolean hasAuraSkills = false;
+    private boolean hasFloodgate = false;
+
+    // Integration instances
+    public AuraSkillsIntegration auraSkillsIntegration;
     public FloodgateHook floodgateHook;
     private RavenSellHook ravenSellHook;
 
@@ -25,9 +58,146 @@ public class IntegrationManager {
     }
 
     public void initializeIntegrations() {
+        checkProtectionPlugins();
+        checkIntegrationPlugins();
+    }
+
+    private void checkProtectionPlugins() {
         hasWorldGuard = checkPlugin("WorldGuard", () -> {
             Plugin worldGuardPlugin = Bukkit.getPluginManager().getPlugin("WorldGuard");
             return worldGuardPlugin != null && worldGuardPlugin.isEnabled();
+        }, true);
+
+        hasGriefPrevention = checkPlugin("GriefPrevention", () -> {
+            Plugin griefPlugin = Bukkit.getPluginManager().getPlugin("GriefPrevention");
+            return griefPlugin instanceof GriefPrevention;
+        }, true);
+
+        hasLands = checkPlugin("Lands", () -> {
+            Plugin landsPlugin = Bukkit.getPluginManager().getPlugin("Lands");
+            if (landsPlugin != null) {
+                new Lands(plugin);
+                return true;
+            }
+            return false;
+        }, true);
+
+        hasTowny = checkPlugin("Towny", () -> {
+            Plugin townyPlugin = Bukkit.getPluginManager().getPlugin("Towny");
+            return townyPlugin != null && townyPlugin.isEnabled();
+        }, true);
+
+        hasSuperiorSkyblock2 = checkPlugin("SuperiorSkyblock2", () -> {
+            Plugin superiorSkyblock2 = Bukkit.getPluginManager().getPlugin("SuperiorSkyblock2");
+            if(superiorSkyblock2 != null) {
+                SuperiorSkyblock2 ssb2 = new SuperiorSkyblock2();
+                Bukkit.getPluginManager().registerEvents(ssb2, plugin);
+                return true;
+            }
+            return false;
+        }, true);
+
+        hasBentoBox = checkPlugin("BentoBox", () -> {
+            Plugin bentoPlugin = Bukkit.getPluginManager().getPlugin("BentoBox");
+            return bentoPlugin != null && bentoPlugin.isEnabled();
+        }, true);
+
+        hasSimpleClaimSystem = checkPlugin("SimpleClaimSystem", () -> {
+            Plugin simpleClaimPlugin = Bukkit.getPluginManager().getPlugin("SimpleClaimSystem");
+            if (simpleClaimPlugin == null || !simpleClaimPlugin.isEnabled()) {
+                return false;
+            }
+            // Prevent SimpleClaimSystem paid version (2.x.x)
+            if (simpleClaimPlugin.getPluginMeta().getVersion().startsWith("2.")) {
+                return false;
+            }
+            SimpleClaimSystemAPI_Provider.initialize((SimpleClaimSystem) simpleClaimPlugin);
+            return SimpleClaimSystemAPI_Provider.getAPI() != null;
+        }, true);
+
+        hasSimpleClaimSystem2 = checkPlugin("SimpleClaimSystem", () -> {
+            Plugin simpleClaimPlugin = Bukkit.getPluginManager().getPlugin("SimpleClaimSystem");
+            if (simpleClaimPlugin == null || !simpleClaimPlugin.isEnabled()) {
+                return false;
+            }
+            // Prevent SimpleClaimSystem free version (1.x.x)
+            if (simpleClaimPlugin.getPluginMeta().getVersion().startsWith("1.")) {
+                return false;
+            }
+            if (SCS_API_Provider.isRegistered()) {
+                SCS_API api = SCS_API_Provider.get();
+                return api != null;
+            }
+            return false;
+        }, true);
+
+        hasRedProtect = checkPlugin("RedProtect", () -> {
+            Plugin pRP = Bukkit.getPluginManager().getPlugin("RedProtect");
+            return pRP != null && pRP.isEnabled();
+        }, true);
+
+        hasMinePlots = checkPlugin("minePlots", () -> {
+            Plugin mP = Bukkit.getPluginManager().getPlugin("minePlots");
+            return mP != null && mP.isEnabled();
+        }, true);
+
+        hasMythicMobs = checkPlugin("MythicMobs", () -> {
+            Plugin mm = Bukkit.getPluginManager().getPlugin("MythicMobs");
+            if(mm != null && mm.isEnabled()) {
+                Bukkit.getPluginManager().registerEvents(new MythicMobsHook(), RavenSpawners.getInstance());
+                return true;
+            }
+            return false;
+        }, true);
+
+        hasIridiumSkyblock = checkPlugin("IridiumSkyblock", () -> {
+            Plugin is = Bukkit.getPluginManager().getPlugin("IridiumSkyblock");
+            if(is != null && is.isEnabled()) {
+                IridiumSkyblock.init(plugin);
+                return true;
+            }
+            return false;
+        }, true);
+
+        hasPlotSquared = checkPlugin("PlotSquared", () -> {
+            Plugin is = Bukkit.getPluginManager().getPlugin("PlotSquared");
+            if(is != null && is.isEnabled()) {
+                PlotAPI api = new PlotAPI();
+                PlotSquared ps = new PlotSquared();
+                api.registerListener(ps);
+                Bukkit.getPluginManager().registerEvents(ps, RavenSpawners.getInstance());
+                return true;
+            }
+            return false;
+        }, true);
+
+        hasResidence = checkPlugin("Residence", () -> {
+            Plugin residence = Bukkit.getPluginManager().getPlugin("Residence");
+            return residence != null && residence.isEnabled();
+        }, true);
+
+        hasFactions = checkPlugin("FactionsUUID", () -> {
+            Plugin factions = Bukkit.getPluginManager().getPlugin("FactionsUUID");
+            return factions != null && factions.isEnabled();
+        }, true);
+
+        hasBlockLocker = checkPlugin("BlockLocker", () -> {
+            Plugin blockLocker = Bukkit.getPluginManager().getPlugin("BlockLocker");
+            return blockLocker != null && blockLocker.isEnabled();
+        }, true);
+
+    }
+
+    private void checkIntegrationPlugins() {
+        hasAuraSkills = checkPlugin("AuraSkills", () -> {
+            Plugin auraSkillsPlugin = Bukkit.getPluginManager().getPlugin("AuraSkills");
+            if (auraSkillsPlugin != null && auraSkillsPlugin.isEnabled()) {
+                this.auraSkillsIntegration = new AuraSkillsIntegration(plugin);
+                return true;
+            } else {
+                this.auraSkillsIntegration = null;
+                return false;
+            }
         }, true);
 
         hasFloodgate = checkPlugin("Floodgate", () -> {
@@ -61,7 +231,11 @@ public class IntegrationManager {
         return false;
     }
 
-    public void reload() {}
+    public void reload() {
+        if (auraSkillsIntegration != null) {
+            auraSkillsIntegration.reloadConfig();
+        }
+    }
 
     public RavenSellHook getRavenSellHook() {
         return ravenSellHook;

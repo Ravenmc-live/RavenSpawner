@@ -18,7 +18,7 @@ publishing {
             pom {
                 name.set("RavenSpawners API")
                 description.set("API for RavenSpawners plugin - allows other plugins to create and manage spawners")
-                url.set("https://github.com/OpenVdra/RavenSpawners")
+                url.set("https://github.com/Ravenmc-live/RavenSpawner")
                 licenses {
                     license {
                         name.set("MIT License")

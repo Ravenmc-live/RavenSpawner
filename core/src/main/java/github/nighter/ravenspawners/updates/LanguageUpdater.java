@@ -1,0 +1,69 @@
+package github.nighter.ravenspawners.updates;
+
+import github.nighter.ravenspawners.RavenSpawners;
+import github.nighter.ravenspawners.language.file.LanguageFiles;
+import lombok.Getter;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Keeps every bundled language file in sync with the defaults. Version-less: on every startup missing
+ * keys are topped up (values and comments) while user translations are preserved. See {@link YamlMigrator}.
+ */
+public class LanguageUpdater {
+
+    private final RavenSpawners plugin;
+    private final Set<LanguageFileType> activeFileTypes = new HashSet<>();
+
+    public LanguageUpdater(RavenSpawners plugin) {
+        this(plugin, LanguageFileType.values());
+    }
+
+    public LanguageUpdater(RavenSpawners plugin, LanguageFileType... fileTypes) {
+        this.plugin = plugin;
+        activeFileTypes.addAll(Arrays.asList(fileTypes));
+        checkAndUpdateLanguageFiles();
+    }
+
+    @Getter
+    public enum LanguageFileType {
+        MESSAGES("messages.yml"),
+        GUI("gui.yml"),
+        COMMAND_GUI("command_gui.yml"),
+        FORMATTING("formatting.yml"),
+        ITEMS("items.yml"),
+        COMMAND_MESSAGES("command_messages.yml");
+
+        private final String fileName;
+        LanguageFileType(String fileName) { this.fileName = fileName; }
+    }
+
+    /**
+     * For each supported locale, ensures every language file is present and up-to-date.
+     * Files are created if missing, otherwise merged-updated. User-customised values are preserved.
+     */
+    public void checkAndUpdateLanguageFiles() {
+        for (String language : LanguageFiles.SUPPORTED_LANGUAGES) {
+            File langDir = new File(plugin.getDataFolder(), "language/" + language);
+            langDir.mkdirs();
+
+            for (LanguageFileType type : activeFileTypes) {
+                File langFile   = new File(langDir, type.getFileName());
+                String resource = "language/" + language + "/" + type.getFileName();
+
+                if (type == LanguageFileType.ITEMS) {
+                    // items.yml: only top up the '<section>.default' keys; leave per-mob overrides alone.
+                    YamlMigrator.migrate(langFile, plugin.getResource(resource), List.of(),
+                            ConfigMigrations.ITEM_DEFAULTS, false, plugin.getLogger());
+                } else {
+                    YamlMigrator.migrate(langFile, plugin.getResource(resource), List.of(),
+                            plugin.getLogger());
+                }
+            }
+        }
+    }
+}

@@ -81,4 +81,9 @@ local.properties
 javac.*.args
 *.backup
 .claude
+
+##############################
+## run-paper test server
+##############################
+run/
 deploy.properties

@@ -383,7 +383,6 @@ public class RavenSpawners extends JavaPlugin implements RavenSpawnersPlugin {
             }
         } else {
             this.spawnerMenuFormUI = null;
-            debug("FormUI components not initialized - Floodgate integration not available");
         }
     }
 
