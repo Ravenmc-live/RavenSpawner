@@ -1,3 +1,10 @@
+import java.util.Properties
+
+buildscript {
+    repositories { mavenCentral() }
+    dependencies { classpath("com.github.mwiede:jsch:0.2.17") }
+}
+
 plugins {
     java
     `java-library`
@@ -99,4 +106,69 @@ allprojects {
             options.release.set(targetJavaVersion)
         }
     }
+}
+
+// ---------------------------------------------------------------------------
+// SFTP deployment — configure servers in gitignored 'deploy.properties'
+// ---------------------------------------------------------------------------
+
+val deployPropsFile = rootProject.file("deploy.properties")
+val deployProps = Properties()
+if (deployPropsFile.exists()) deployPropsFile.reader().use { deployProps.load(it) }
+
+val deployServerNames = (deployProps.getProperty("servers", ""))
+    .split(",").map { it.trim() }.filter { it.isNotEmpty() }
+
+fun ensureRemoteDir(channel: com.jcraft.jsch.ChannelSftp, remoteDir: String) {
+    var path = ""
+    remoteDir.split("/").filter { it.isNotEmpty() }.forEach { part ->
+        path += "/$part"
+        try { channel.mkdir(path) } catch (_: Exception) {}
+    }
+}
+
+fun sftpUpload(host: String, port: Int, user: String, password: String, localFile: File, remoteDir: String) {
+    val session = com.jcraft.jsch.JSch().getSession(user, host, port)
+    session.setPassword(password)
+    session.setConfig("StrictHostKeyChecking", "no")
+    session.connect(15000)
+    try {
+        val channel = session.openChannel("sftp") as com.jcraft.jsch.ChannelSftp
+        channel.connect(15000)
+        try {
+            ensureRemoteDir(channel, remoteDir)
+            channel.put(localFile.absolutePath, "$remoteDir/${localFile.name}")
+        } finally { channel.disconnect() }
+    } finally { session.disconnect() }
+}
+
+val sftpDeployAll = tasks.register("sftpDeployAll") {
+    group = "Pterodactyl deployment"
+    description = "Builds and uploads the plugin jar to every server in deploy.properties."
+}
+
+tasks.register("deploy") { dependsOn("sftpDeployAll") }
+
+deployServerNames.forEach { name ->
+    val serverTask = tasks.register("sftpDeployTo${name.replaceFirstChar { it.uppercase() }}") {
+        group = "Pterodactyl deployment"
+        description = "Uploads RavenSpawners to '$name' via SFTP."
+        dependsOn(":core:shadowJar")
+        doLast {
+            val host      = deployProps.getProperty("$name.host")
+                ?: throw GradleException("Missing $name.host in deploy.properties")
+            val port      = deployProps.getProperty("$name.port", "2022").toInt()
+            val user      = deployProps.getProperty("$name.user")
+                ?: throw GradleException("Missing $name.user in deploy.properties")
+            val password  = deployProps.getProperty("$name.password")
+                ?: throw GradleException("Missing $name.password in deploy.properties")
+            val remoteDir = deployProps.getProperty("$name.remoteDir", "/plugins")
+
+            val jarFile = project(":core").tasks.named("shadowJar", com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar::class).get().archiveFile.get().asFile
+            logger.lifecycle("Uploading ${jarFile.name} to '$name' ($host:$port$remoteDir)")
+            sftpUpload(host, port, user, password, jarFile, remoteDir)
+            logger.lifecycle("Uploaded ${jarFile.name} to '$name'")
+        }
+    }
+    sftpDeployAll.configure { dependsOn(serverTask) }
 }

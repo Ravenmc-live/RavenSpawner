@@ -4,17 +4,21 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.46")
 }
 
+tasks.withType<Jar>().configureEach {
+    archiveBaseName.set("RavenSpawners-API")
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             groupId = "github.nighter"
-            artifactId = "smartspawner-api"
+            artifactId = "ravenspawners-api"
             from(components["java"])
 
             pom {
-                name.set("SmartSpawner API")
-                description.set("API for SmartSpawner plugin - allows other plugins to create and manage spawners")
-                url.set("https://github.com/OpenVdra/SmartSpawner")
+                name.set("RavenSpawners API")
+                description.set("API for RavenSpawners plugin - allows other plugins to create and manage spawners")
+                url.set("https://github.com/OpenVdra/RavenSpawners")
                 licenses {
                     license {
                         name.set("MIT License")

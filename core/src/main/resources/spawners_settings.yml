@@ -1,6 +1,6 @@
 # Important: Each time a spawner is triggered, it will generate between min_mobs and max_mobs (default: 1 to 4) times the drops specified below.
 # For detailed configuration guide and examples, please visit:
-# https://openvdra.github.io/SmartSpawner/spawners_settings/
+# https://openvdra.github.io/RavenSpawners/spawners_settings/
 
 # Default head material for unknown mobs
 default_material: "SPAWNER"
@@ -8,7 +8,7 @@ default_material: "SPAWNER"
 # Reference: https://minecraft.wiki/w/Allay#Drops
 ALLAY:
   experience: 0
-  # Optional spawner item drop chance when this Smart Spawner is broken.
+  # Optional spawner item drop chance when this RavenSpawners is broken.
   # If this key is omitted, the spawner item drop chance defaults to 100.0.
   # Values must be percentages from 0.0 to 100.0.
   # drop_chance: 100.0

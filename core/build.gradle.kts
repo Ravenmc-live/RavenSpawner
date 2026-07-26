@@ -51,7 +51,7 @@ tasks.withType<Javadoc>().configureEach {
 
 // Don't use 'jar' task to build plugin jar, use 'shadowJar' task instead
 tasks.jar {
-    archiveBaseName.set("SmartSpawnerJar")
+    archiveBaseName.set("RavenSpawnersJar")
     archiveVersion.set(version.toString())
 
     from(project(":api").sourceSets["main"].output)
@@ -61,7 +61,7 @@ tasks.jar {
 
 tasks.shadowJar {
 
-    archiveBaseName.set("SmartSpawner")
+    archiveBaseName.set("RavenSpawners")
     archiveVersion.set(version.toString())
     archiveClassifier.set("")
     from(project(":api").sourceSets["main"].output)
@@ -75,8 +75,8 @@ tasks.shadowJar {
     from(sourceSets["main"].output)
     exclude("org/slf4j/**")
 
-    relocate("com.zaxxer.hikari", "github.nighter.smartspawner.libs.hikari")
-    relocate("org.mariadb.jdbc", "github.nighter.smartspawner.libs.mariadb")
+    relocate("com.zaxxer.hikari", "github.nighter.ravenspawners.libs.hikari")
+    relocate("org.mariadb.jdbc", "github.nighter.ravenspawners.libs.mariadb")
     relocate("org.bstats", project.group.toString())
     mergeServiceFiles()
 
@@ -113,11 +113,11 @@ tasks.register("generateLanguageChangelog") {
         // ── 1. Fetch latest GitHub release tag ───────────────────────────────
         val githubVersion: String = try {
             val conn = URI.create(
-                "https://api.github.com/repos/OpenVdra/SmartSpawner/releases/latest"
+                "https://api.github.com/repos/OpenVdra/RavenSpawners/releases/latest"
             ).toURL().openConnection() as java.net.HttpURLConnection
             conn.requestMethod = "GET"
             conn.setRequestProperty("Accept", "application/vnd.github.v3+json")
-            conn.setRequestProperty("User-Agent", "SmartSpawner-Changelog-Bot/1.0")
+            conn.setRequestProperty("User-Agent", "RavenSpawners-Changelog-Bot/1.0")
             conn.connectTimeout = 6_000
             conn.readTimeout    = 6_000
             if (conn.responseCode == 200) {
@@ -164,11 +164,11 @@ tasks.register("generateLanguageChangelog") {
             listOf(currentVersion, "v$currentVersion").firstOrNull { tag ->
                 try {
                     val tagConn = URI.create(
-                        "https://api.github.com/repos/OpenVdra/SmartSpawner/git/refs/tags/$tag"
+                        "https://api.github.com/repos/OpenVdra/RavenSpawners/git/refs/tags/$tag"
                     ).toURL().openConnection() as java.net.HttpURLConnection
                     tagConn.requestMethod = "GET"
                     tagConn.setRequestProperty("Accept", "application/vnd.github.v3+json")
-                    tagConn.setRequestProperty("User-Agent", "SmartSpawner-Changelog-Bot/1.0")
+                    tagConn.setRequestProperty("User-Agent", "RavenSpawners-Changelog-Bot/1.0")
                     tagConn.connectTimeout = 6_000
                     tagConn.readTimeout    = 6_000
                     tagConn.responseCode == 200
@@ -233,10 +233,10 @@ tasks.register("generateLanguageChangelog") {
         // ── 5. Fetch the old language files from GitHub and diff ─────────────
         fun fetchRaw(tag: String, file: String): String? = try {
             val url = "https://raw.githubusercontent.com/OpenVdra/" +
-                      "SmartSpawner/$tag/core/src/main/resources/language/$locale/$file"
+                      "RavenSpawners/$tag/core/src/main/resources/language/$locale/$file"
             val conn = URI.create(url).toURL().openConnection() as java.net.HttpURLConnection
             conn.requestMethod = "GET"
-            conn.setRequestProperty("User-Agent", "SmartSpawner-Changelog-Bot/1.0")
+            conn.setRequestProperty("User-Agent", "RavenSpawners-Changelog-Bot/1.0")
             conn.connectTimeout = 8_000
             conn.readTimeout    = 8_000
             if (conn.responseCode == 200) conn.inputStream.bufferedReader().readText() else null
@@ -301,7 +301,7 @@ tasks.register("generateLanguageChangelog") {
             appendLine("── v$currentVersion ($today) $separator")
             appendLine()
             appendLine("  Summary: Version $currentVersion released")
-            appendLine("           Compare: https://github.com/OpenVdra/SmartSpawner/compare/$githubVersion...$toRef")
+            appendLine("           Compare: https://github.com/OpenVdra/RavenSpawners/compare/$githubVersion...$toRef")
             appendLine()
             appendLine(formatSection("ADDED",   addedPerFile))
             appendLine()

@@ -1,9 +1,9 @@
-# SmartSpawner – items.yml
+# RavenSpawners – items.yml
 # Spawner item display names and drop item names.
 
-# Appearance of smart spawner items in inventory and tooltips
+# Appearance of RavenSpawners items in inventory and tooltips
 # Available placeholders: {entity}, {ᴇɴᴛɪᴛʏ}, {exp}, {loot_items}, {amount}, {item_name}, {chance}
-smart_spawner:
+raven_spawners:
   default:
     name: '&#5DB5F1{entity} Spawner'
     loot_items: '  &#ecf0f1 • {amount} {item_name} &#3498db({chance}%)'

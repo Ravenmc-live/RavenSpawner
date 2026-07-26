@@ -156,10 +156,10 @@ reload:
   start:
     message: "&#F0C857Eklenti yenileniyor... Lütfen bekleyin."
   success:
-    message: "&#3498dbSmartSpawner &fbaşarıyla yenilendi."
+    message: "&#3498dbRavenSpawners &fbaşarıyla yenilendi."
     sound: entity.experience_orb.pickup
   error:
-    message: "&#FF4444SmartSpawner yenilenirken hata oluştu. Detaylar için konsola bakın."
+    message: "&#FF4444RavenSpawners yenilenirken hata oluştu. Detaylar için konsola bakın."
     sound: block.note_block.pling
 
 # ──────────────────────────────────────────────────────

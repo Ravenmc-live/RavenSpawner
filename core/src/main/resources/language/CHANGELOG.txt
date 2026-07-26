@@ -2,7 +2,7 @@
 ── v1.7.0 (2026-06-14) ─────────────────────────────────────────────────────────
 
   Summary: Version 1.7.0 released
-           Compare: https://github.com/OpenVdra/SmartSpawner/compare/1.6.9...main
+           Compare: https://github.com/OpenVdra/RavenSpawners/compare/1.6.9...main
 
   ADDED:
     messages.yml:

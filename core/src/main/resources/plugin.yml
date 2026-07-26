@@ -1,8 +1,8 @@
-name: SmartSpawner
+name: RavenSpawners
 version: '${version}'
-main: github.nighter.smartspawner.SmartSpawner
+main: github.nighter.ravenspawners.RavenSpawners
 api-version: '1.21'
-authors: [ https://github.com/OpenVdra/SmartSpawner ]
+authors: [ https://github.com/OpenVdra/RavenSpawners ]
 folia-supported: true
 softdepend:
   # Bedrock Support Plugins
@@ -13,6 +13,7 @@ softdepend:
   - EconomyShopGUI
   - EconomyShopGUI-Premium
   - ShopGUIPlus
+  - RavenSell
   - zShop
 
   # Utility/Economy Plugins
@@ -21,14 +22,7 @@ softdepend:
 
   # Protection/Region Plugins
   - WorldGuard
-  - GriefPrevention
-  - Lands
-  - Towny
-  - SimpleClaimSystem
-  - RedProtect
-  - minePlots
-  - PlotSquared
-  - Residence
+
 
   # World Management Plugins
   - Multiverse-Core
@@ -38,84 +32,79 @@ softdepend:
   - BentoBox
   - IridiumSkyblock
 
-  # RPG/Skill Plugins
-  - AuraSkills
-
-  #Drops Plugins
-  - MythicMobs
 
 commands:
-  smartspawner:
-    description: Main command for SmartSpawner plugin
-    usage: /smartspawner [reload|give|list|hologram|prices|clear|near|set|language|gui_layout] [args...]
+  ravenspawners:
+    description: Main command for RavenSpawners plugin
+    usage: /ravenspawners [reload|give|list|hologram|prices|clear|near|set|language|gui_layout] [args...]
     aliases: [ ss, spawner ]
-    permission: smartspawner.command.use
-    permission-message: "You don't have permission to use SmartSpawner commands!"
+    permission: ravenspawners.command.use
+    permission-message: "You don't have permission to use RavenSpawners commands!"
 
 permissions:
   # Main command permission
-  smartspawner.command.use:
-    description: Allow access to SmartSpawner commands
+  ravenspawners.command.use:
+    description: Allow access to RavenSpawners commands
     default: op
 
   # Subcommand permissions
-  smartspawner.command.reload:
-    description: Permission to reload SmartSpawner plugin
+  ravenspawners.command.reload:
+    description: Permission to reload RavenSpawners plugin
     default: op
 
-  smartspawner.command.give:
+  ravenspawners.command.give:
     description: Allow giving spawners to yourself
     default: op
 
-  smartspawner.command.list:
+  ravenspawners.command.list:
     description: Allow viewing list of spawners and teleporting to them
     default: op
 
-  smartspawner.command.hologram:
+  ravenspawners.command.hologram:
     description: Allow toggling hologram for spawners
     default: op
 
-  smartspawner.command.prices:
+  ravenspawners.command.prices:
     description: Allow viewing sell prices of spawner items
     default: op
 
-  smartspawner.command.clear:
+  ravenspawners.command.clear:
     description: Allow clearing holograms and ghost spawners
     default: op
 
-  smartspawner.command.near:
+  ravenspawners.command.near:
     description: Allow highlighting nearby spawners through walls
     default: op
 
-  smartspawner.command.set:
-    description: Allow setting SmartSpawner stack size, range, and delay
+  ravenspawners.command.set:
+    description: Allow setting RavenSpawners stack size, range, and delay
     default: op
 
-  smartspawner.command.language:
-    description: Allow changing the active SmartSpawner language
+  ravenspawners.command.language:
+    description: Allow changing the active RavenSpawners language
     default: op
 
-  smartspawner.command.gui_layout:
-    description: Allow changing the active SmartSpawner GUI layout
+  ravenspawners.command.gui_layout:
+    description: Allow changing the active RavenSpawners GUI layout
     default: op
 
   # Feature permissions
-  smartspawner.changetype:
+  ravenspawners.changetype:
     description: Allow changing spawner type with spawn egg
     default: op
 
-  smartspawner.stack:
+  ravenspawners.stack:
     description: Allow stacking spawners
     default: true
 
-  smartspawner.break:
+  ravenspawners.break:
     description: Allow breaking spawners
     default: true
 
-  smartspawner.break.bypassdropchance:
+  ravenspawners.break.bypassdropchance:
     description: Bypass spawner drop chance and always receive spawner drops
     default: op
 
-  smartspawner.sellall:
+  ravenspawners.sellall:
     description: Allow selling items in spawner storage GUI
     default: true

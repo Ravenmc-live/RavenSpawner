@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   build:
-    if: github.repository == 'OpenVdra/SmartSpawner'
+    if: github.repository == 'OpenVdra/RavenSpawners'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -56,7 +56,7 @@ jobs:
           path: docs/.vitepress/dist
 
   deploy:
-    if: github.repository == 'OpenVdra/SmartSpawner'
+    if: github.repository == 'OpenVdra/RavenSpawners'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

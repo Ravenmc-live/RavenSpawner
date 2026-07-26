@@ -62,12 +62,12 @@ spawner_break:
   # Durability impact on tools when breaking a spawner
   durability_loss: 1    # Number of durability points deducted
 
-  # Allow sneaking while breaking a Smart Spawner stack to remove up to 64 spawners at once.
+  # Allow sneaking while breaking a RavenSpawners stack to remove up to 64 spawners at once.
   # If disabled, sneaking breaks only one spawner, the same as a normal break.
   sneak_break: true
 
-  # Automatically sell storage items and claim remaining XP only when a Smart Spawner is fully removed
-  # Requires sell integration + smartspawner.sellall (true by default)
+  # Automatically sell storage items and claim remaining XP only when a RavenSpawners is fully removed
+  # Requires sell integration + ravenspawners.sellall (true by default)
   sell_and_xp_break: true
 
   # Enchantment Requirements for successful spawner collection
@@ -83,9 +83,9 @@ natural_spawner:
   # Whether natural spawners can be broken and collected
   breakable: false
 
-  # Convert natural spawners to smart spawners when broken
+  # Convert natural spawners to RavenSpawners when broken
   # If false, natural spawners will drop vanilla spawner items
-  convert_to_smart_spawner: false
+  convert_to_raven_spawners: false
 
   # Optional spawner item drop chance when natural spawners are broken.
   # Values must be percentages from 0.0 to 100.0.
@@ -108,7 +108,7 @@ natural_spawner:
 #---------------------------------------------------
 #            Storage Selling Settings
 #---------------------------------------------------
-# Sell integration for items stored inside Smart Spawner storage
+# Sell integration for items stored inside RavenSpawners storage
 sell_integration:
 
   # Enable or disable selling items from spawner storage
@@ -285,7 +285,7 @@ database:
   # Used to distinguish spawners from different servers
   server_name: "server1"
 
-  # Enable cross-server spawner viewing in /smartspawner list
+  # Enable cross-server spawner viewing in /ravenspawners list
   # When true, shows a server selection page before world selection
   # Allows viewing spawners from all servers in the shared database
   # Only works when mode is MYSQL (SQLite is local only)
@@ -307,7 +307,7 @@ database:
   migrate_from_local: true
 
   # Database name to use (only for MYSQL mode)
-  database: "smartspawner"
+  database: "ravenspawners"
 
   # SQLite settings (only for SQLITE mode)
   sqlite:

@@ -1,5 +1,5 @@
 # ──────────────────────────────────────────────────────────────────────────────
-#   SmartSpawner – Discord Logging Configuration
+#   RavenSpawners – Discord Logging Configuration
 #   File: discord_logging.yml
 # ──────────────────────────────────────────────────────────────────────────────
 #
@@ -77,7 +77,7 @@ SPAWNER_PLACE:
     title: "✅ Spawner Placed"
     description: "**{player}** placed a **{entity}** spawner"
     color: "57F287"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -94,7 +94,7 @@ SPAWNER_BREAK:
     title: "❌ Spawner Broken"
     description: "**{player}** broke a **{entity}** spawner"
     color: "ED4245"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -108,7 +108,7 @@ SPAWNER_EXPLODE:
     title: "💥 Spawner Destroyed by Explosion"
     description: "A **{entity}** spawner was destroyed by an explosion"
     color: "FF6B6B"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -122,7 +122,7 @@ SPAWNER_STACK_HAND:
     title: "✋ Spawner Stacked by Hand"
     description: "**{player}** stacked a **{entity}** spawner by hand"
     color: "FEE75C"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -139,7 +139,7 @@ SPAWNER_STACK_GUI:
     title: "📦 Spawner Stacked via GUI"
     description: "**{player}** stacked a **{entity}** spawner via GUI"
     color: "F1C40F"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -156,7 +156,7 @@ SPAWNER_DESTACK_GUI:
     title: "📤 Spawner Destacked via GUI"
     description: "**{player}** destacked a **{entity}** spawner"
     color: "E67E22"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -170,7 +170,7 @@ SPAWNER_GUI_OPEN:
     title: "📋 Spawner GUI Opened"
     description: "**{player}** opened the spawner GUI"
     color: "9B59B6"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -184,7 +184,7 @@ SPAWNER_STORAGE_OPEN:
     title: "📦 Storage GUI Opened"
     description: "**{player}** opened the storage GUI"
     color: "8E44AD"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -198,7 +198,7 @@ SPAWNER_STACKER_OPEN:
     title: "🔢 Stacker GUI Opened"
     description: "**{player}** opened the stacker GUI"
     color: "BB8FCE"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -212,7 +212,7 @@ SPAWNER_EXP_CLAIM:
     title: "✨ Experience Claimed"
     description: "**{player}** collected experience from a spawner"
     color: "2ECC71"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -226,7 +226,7 @@ SPAWNER_SELL_ALL:
     title: "💰 Items Sold"
     description: "**{player}** sold items from a spawner"
     color: "27AE60"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -243,7 +243,7 @@ SPAWNER_ITEM_TAKE_ALL:
     title: "🎒 Items Taken from Storage"
     description: "**{player}** took all items from a spawner"
     color: "1ABC9C"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -260,7 +260,7 @@ SPAWNER_ITEM_DROP:
     title: "🗑️ Item Dropped from Storage"
     description: "**{player}** dropped an item from storage"
     color: "16A085"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -271,7 +271,7 @@ SPAWNER_ITEMS_SORT:
     title: "🔃 Storage Items Sorted"
     description: "**{player}** sorted items in storage"
     color: "48C9B0"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -285,7 +285,7 @@ SPAWNER_ITEM_FILTER:
     title: "🔍 Item Filter Toggled"
     description: "**{player}** changed the item filter"
     color: "45B7AF"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -296,7 +296,7 @@ SPAWNER_DROP_PAGE_ITEMS:
     title: "📄 Page Items Dropped"
     description: "**{player}** dropped all items from a storage page"
     color: "138D75"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -313,7 +313,7 @@ SPAWNER_EGG_CHANGE:
     title: "🥚 Spawner Entity Changed"
     description: "**{player}** changed a spawner's entity type"
     color: "E91E63"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "📍 Location"
         value: "`{location}`"
@@ -325,9 +325,9 @@ SPAWNER_EGG_CHANGE:
 COMMAND_EXECUTE_PLAYER:
   embed:
     title: "👤 Command Executed by Player"
-    description: "**{player}** ran a SmartSpawner command"
+    description: "**{player}** ran a RavenSpawners command"
     color: "5865F2"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "⚙️ Command"
         value: "`{full_command}`"
@@ -336,9 +336,9 @@ COMMAND_EXECUTE_PLAYER:
 COMMAND_EXECUTE_CONSOLE:
   embed:
     title: "🖥️ Command Executed by Console"
-    description: "Console ran a SmartSpawner command"
+    description: "Console ran a RavenSpawners command"
     color: "3B5998"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "⚙️ Command"
         value: "`{full_command}`"
@@ -347,9 +347,9 @@ COMMAND_EXECUTE_CONSOLE:
 COMMAND_EXECUTE_RCON:
   embed:
     title: "🔌 Command Executed via RCON"
-    description: "RCON ran a SmartSpawner command"
+    description: "RCON ran a RavenSpawners command"
     color: "7289DA"
-    footer: "SmartSpawner • {time}"
+    footer: "RavenSpawners • {time}"
     fields:
       - name: "⚙️ Command"
         value: "`{full_command}`"

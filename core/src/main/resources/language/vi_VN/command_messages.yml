@@ -1,4 +1,4 @@
-# SmartSpawner – command_messages.yml
+# RavenSpawners – command_messages.yml
 # Messages related to plugin commands, including usage instructions and command errors.
 
 # ──────────────────────────────────────────────────────
@@ -37,7 +37,7 @@ set:
     message: "Cách dùng: &#3498db/ss set <stack_size|range|delay> <value> [world x y z]"
     sound: block.note_block.hat
   invalid:
-    message: "&#FF4444Giá trị hoặc vị trí SmartSpawner không hợp lệ."
+    message: "&#FF4444Giá trị hoặc vị trí RavenSpawners không hợp lệ."
     sound: block.note_block.pling
   stack_size_exceeds_max:
     message: "&#FF4444Số lượng stack &f{value} &#FF4444vượt quá giới hạn stack của spawner này: &f{max}"
@@ -156,10 +156,10 @@ reload:
   start:
     message: "&#F0C857Đang tải lại plugin... Vui lòng chờ."
   success:
-    message: "Đã tải lại thành công &#3498dbSmartSpawner&f."
+    message: "Đã tải lại thành công &#3498dbRavenSpawners&f."
     sound: entity.experience_orb.pickup
   error:
-    message: "&#FF4444Không thể tải lại SmartSpawner. Vui lòng kiểm tra console để biết chi tiết."
+    message: "&#FF4444Không thể tải lại RavenSpawners. Vui lòng kiểm tra console để biết chi tiết."
     sound: block.note_block.pling
 
 # ──────────────────────────────────────────────────────

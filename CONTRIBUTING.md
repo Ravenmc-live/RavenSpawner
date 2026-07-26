@@ -1,8 +1,8 @@
-# Contributing to SmartSpawner
+# Contributing to RavenSpawners
 
-Thank you for your interest in contributing to SmartSpawner. We welcome contributions of all sizes, from bug fixes and documentation improvements to new APIs and ecosystem enhancements.
+Thank you for your interest in contributing to RavenSpawners. We welcome contributions of all sizes, from bug fixes and documentation improvements to new APIs and ecosystem enhancements.
 
-Our goal is to keep SmartSpawner fast, maintainable, and extensible. The guidelines below help ensure that contributions align with those goals.
+Our goal is to keep RavenSpawners fast, maintainable, and extensible. The guidelines below help ensure that contributions align with those goals.
 
 ---
 
@@ -10,13 +10,13 @@ Our goal is to keep SmartSpawner fast, maintainable, and extensible. The guideli
 
 ### Performance-Oriented Design
 
-Performance is one of the core goals of SmartSpawner. New features and changes should be designed with execution speed, memory usage, and scalability in mind.
+Performance is one of the core goals of RavenSpawners. New features and changes should be designed with execution speed, memory usage, and scalability in mind.
 
 Contributions do not need to be micro-optimized, but they should avoid introducing unnecessary overhead, complexity, or regressions.
 
 ### Modular and Extensible Architecture
 
-SmartSpawner aims to keep the core lightweight and focused.
+RavenSpawners aims to keep the core lightweight and focused.
 
 Features that target specialized, niche, or optional use cases are often better implemented as addons rather than built directly into the core project.
 
@@ -37,7 +37,7 @@ As a general guideline, a feature should be considered for an addon if it:
 * Serves a specific or niche use case.
 * Adds significant complexity to the core.
 * Can be implemented using existing extension points or APIs.
-* Is not required by most SmartSpawner users.
+* Is not required by most RavenSpawners users.
 
 Features that are broadly useful, foundational, and beneficial to the majority of users may be appropriate for inclusion in the core.
 
@@ -98,4 +98,4 @@ Technical discussions and disagreements are expected, but they should focus on i
 
 Harassment, abusive behavior, personal attacks, or dismissive conduct will not be tolerated.
 
-Together, we can build a welcoming and productive community around SmartSpawner.
+Together, we can build a welcoming and productive community around RavenSpawners.

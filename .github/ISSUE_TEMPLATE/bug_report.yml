@@ -18,7 +18,7 @@ body:
     id: plugin-version
     attributes:
       label: "Plugin Version"
-      description: "Which Smart Spawner version are you using? (e.g., v1.2.3)"
+      description: "Which RavenSpawners version are you using? (e.g., v1.2.3)"
     validations:
       required: true
 

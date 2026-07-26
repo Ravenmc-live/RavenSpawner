@@ -1,4 +1,4 @@
-# SmartSpawner – command_messages.yml
+# RavenSpawners – command_messages.yml
 # Messages related to plugin commands, including usage instructions and command errors.
 
 # ──────────────────────────────────────────────────────
@@ -37,7 +37,7 @@ set:
     message: "Usage: &#3498db/ss set <stack_size|range|delay> <value> [world x y z]"
     sound: block.note_block.hat
   invalid:
-    message: "&#FF4444Invalid value or SmartSpawner location."
+    message: "&#FF4444Invalid value or RavenSpawners location."
     sound: block.note_block.pling
   stack_size_exceeds_max:
     message: "&#FF4444Stack size &f{value} &#FF4444exceeds this spawner's max stack size: &f{max}"
@@ -156,10 +156,10 @@ reload:
   start:
     message: "&#F0C857Reloading plugin... Please wait."
   success:
-    message: "Successfully reloaded &#3498dbSmartSpawner&f."
+    message: "Successfully reloaded &#3498dbRavenSpawners&f."
     sound: entity.experience_orb.pickup
   error:
-    message: "&#FF4444Failed to reload SmartSpawner. Please check console for details."
+    message: "&#FF4444Failed to reload RavenSpawners. Please check console for details."
     sound: block.note_block.pling
 
 # ──────────────────────────────────────────────────────

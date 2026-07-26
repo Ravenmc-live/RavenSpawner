@@ -2,7 +2,7 @@
 
 ## Goal
 
-Replace the SmartSpawner identity throughout the project with the canonical
+Replace the RavenSpawners identity throughout the project with the canonical
 RavenSpawners identity. This is an intentional breaking rebrand: the project
 will not retain compatibility aliases, deprecated API shims, or migrations for
 the former name.
@@ -15,8 +15,7 @@ the former name.
 - Snake-case configuration and persistence identifier: `raven_spawners`
 - Human-readable phrase: `RavenSpawners`
 
-The canonical product name is plural. New identifiers must not use the singular
-forms `RavenSpawner` or `ravenspawner`.
+The canonical product name and every derived identifier use the plural form.
 
 ## Scope
 
@@ -38,7 +37,7 @@ including:
   CI workflows, deployment conditions, artifact paths, and project URLs
 - Project-owned filenames and directory names containing the former brand
 
-Neutral uses of the adjective “smart” that do not identify SmartSpawner are
+Neutral uses of the adjective “smart” that do not identify RavenSpawners are
 outside the rename. Every ambiguous occurrence will be classified by whether it
 refers to the former product or one of its named runtime concepts.
 
@@ -46,10 +45,10 @@ refers to the former product or one of its named runtime concepts.
 
 This is a hard break. The implementation will not:
 
-- preserve `/smartspawner` as a command or alias
-- preserve `smartspawner.*` permissions
-- retain `github.nighter.smartspawner` packages
-- retain `SmartSpawner` API or implementation type names
+- preserve `/ravenspawners` as a command or alias
+- preserve `ravenspawners.*` permissions
+- retain `github.nighter.ravenspawners` packages
+- retain `RavenSpawners` API or implementation type names
 - read old product-named configuration keys or persistent-data namespaces
 - migrate old product-named database names or tables
 - retain old plugin lookup names or artifact names
@@ -82,7 +81,7 @@ will not be restored or rewritten.
   symbols.
 - YAML descriptors and configuration files will be inspected in the built JAR,
   not only in the source tree.
-- References to external SmartSpawner URLs will be converted to the equivalent
+- References to external RavenSpawners URLs will be converted to the equivalent
   RavenSpawners location where the mapping is deterministic. A broken or
   unknowable external destination will be reported rather than invented.
 - Generated build output and Git internals are excluded from residue decisions.
@@ -105,5 +104,5 @@ Completion requires all of the following:
 ## Success Criteria
 
 The repository builds and operates under the RavenSpawners identity without
-requiring or exposing SmartSpawner-compatible APIs, commands, permissions,
+requiring or exposing RavenSpawners-compatible APIs, commands, permissions,
 storage identifiers, artifacts, or branding.
