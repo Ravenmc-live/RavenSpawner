@@ -68,6 +68,8 @@ import github.nighter.ravenspawners.spawner.properties.SpawnerData;
 import github.nighter.ravenspawners.spawner.sell.SpawnerSellManager;
 import github.nighter.ravenspawners.spawner.utils.SpawnerLocationLockManager;
 import github.nighter.ravenspawners.spawner.utils.SpawnerTypeChecker;
+import github.nighter.ravenspawners.updates.ConfigUpdater;
+import github.nighter.ravenspawners.updates.GuiLayoutUpdater;
 import github.nighter.ravenspawners.utils.TimeFormatter;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -173,6 +175,11 @@ public class RavenSpawners extends JavaPlugin implements RavenSpawnersPlugin {
     public void onEnable() {
         long startTime = System.currentTimeMillis();
         instance = this;
+
+        // Write config.yml and the bundled GUI layouts on first run, and top up
+        // existing files with any new keys
+        new ConfigUpdater(this).checkAndUpdateConfig();
+        new GuiLayoutUpdater(this).checkAndUpdateLayouts();
         Config.load(this);
 
         // Initialize plugin integrations
