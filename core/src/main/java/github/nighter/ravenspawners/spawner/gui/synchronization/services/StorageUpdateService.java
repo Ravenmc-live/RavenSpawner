@@ -88,58 +88,15 @@ public class StorageUpdateService {
      */
     public void processStorageUpdateDirect(Player viewer, Inventory inventory, SpawnerData spawner,
                                            StoragePageHolder holder, int oldTotalPages, int newTotalPages) {
-        int currentPage = holder.getCurrentPage();
-        boolean pagesChanged = oldTotalPages != newTotalPages;
-        
-        if (!pagesChanged) {
-            // Just update contents - no title update needed, but MUST update oldUsedSlots
-            // to prevent stale values in future calculations
-            spawnerStorageUI.updateDisplay(inventory, spawner, currentPage, newTotalPages);
-            holder.updateOldUsedSlots();
-            viewer.updateInventory();
-            return;
+        if (holder.getSpawnerData() != spawner) return;
+        int previousPages = holder.getTotalPages();
+        int previousPage = holder.getCurrentPage();
+        spawnerStorageUI.updateDisplay(inventory, spawner, previousPage, -1);
+        holder.updateOldUsedSlots();
+        if (previousPages != holder.getTotalPages() || previousPage != holder.getCurrentPage()) {
+            viewer.getOpenInventory().setTitle(getStorageTitle(spawner, holder.getCurrentPage(), holder.getTotalPages()));
         }
-        
-        // Determine if current page is still valid
-        boolean needsNewInventory = false;
-        int targetPage = currentPage;
-        
-        if (currentPage > newTotalPages) {
-            // Current page is out of bounds, set to last page
-            targetPage = newTotalPages;
-            holder.setCurrentPage(targetPage);
-            needsNewInventory = true;
-        } else {
-            // Pages changed but current page is still valid, just update title
-            needsNewInventory = true;
-        }
-
-        if (needsNewInventory) {
-            try {
-                // Update holder metadata first
-                holder.setTotalPages(newTotalPages);
-                holder.updateOldUsedSlots();
-                
-                // Update inventory title and contents
-                String newTitle = getStorageTitle(spawner, targetPage, newTotalPages);
-                viewer.getOpenInventory().setTitle(newTitle);
-                spawnerStorageUI.updateDisplay(inventory, spawner, targetPage, newTotalPages);
-            } catch (Exception e) {
-                // Fall back to creating a new inventory
-                Inventory newInv = spawnerStorageUI.createStorageInventory(
-                        viewer,
-                        spawner,
-                        targetPage,
-                        newTotalPages
-                );
-                viewer.closeInventory();
-                viewer.openInventory(newInv);
-            }
-        } else {
-            // Just update contents
-            spawnerStorageUI.updateDisplay(inventory, spawner, targetPage, newTotalPages);
-            viewer.updateInventory();
-        }
+        viewer.updateInventory();
     }
 
     /**

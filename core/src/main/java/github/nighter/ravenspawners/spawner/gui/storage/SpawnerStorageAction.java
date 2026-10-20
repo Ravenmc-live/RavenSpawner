@@ -1,6 +1,8 @@
 package github.nighter.ravenspawners.spawner.gui.storage;
 
 import github.nighter.ravenspawners.RavenSpawners;
+import github.nighter.ravenspawners.spawner.gui.storage.filter.StorageViewFilter;
+import github.nighter.ravenspawners.spawner.gui.storage.utils.StorageTransfer;
 import github.nighter.ravenspawners.api.events.SpawnerDropAllEvent;
 import github.nighter.ravenspawners.api.events.SpawnerTakeAllEvent;
 import github.nighter.ravenspawners.api.gui.GuiLayoutType;
@@ -77,6 +79,10 @@ public class SpawnerStorageAction implements Listener {
         SpawnerData spawner = holder.getSpawnerData();
         int slot = event.getRawSlot();
         event.setCancelled(true);
+        if (spawnerManager.getSpawnerById(spawner.getSpawnerId()) != spawner) {
+            player.closeInventory();
+            return;
+        }
 
         // Block ALL storage interactions while a sell is in progress.
         // This closes the race window where the storage GUI could be reopened (by the
@@ -135,6 +141,17 @@ public class SpawnerStorageAction implements Listener {
 
         // OPTIMIZATION: Handle actions based on action value, not button name
         switch (action) {
+            case "cycle_storage_filter":
+                List<Material> materials = new ArrayList<>();
+                if (spawner.getLootConfig() != null) {
+                    spawner.getLootConfig().getAllItems().forEach(item -> materials.add(item.material()));
+                }
+                spawner.getVirtualInventory().getConsolidatedItems().keySet()
+                        .forEach(item -> materials.add(item.getMaterial()));
+                holder.setViewFilter(StorageViewFilter.cycle(materials, holder.getViewFilter(), clickType.isRightClick()));
+                updatePageContent(player, spawner, 1, inventory);
+                plugin.getGuiButtonInteractionService().playNavigateSound(player, button, clickTypeString);
+                break;
             case "sort_items":
                 playActionResult(player, button, clickTypeString,
                         handleSortItemsClick(player, spawner, inventory));
@@ -332,62 +349,23 @@ public class SpawnerStorageAction implements Listener {
      */
     private void transferToPlayerInventory(Player player, ItemStack clickedItem, int amountToTake,
                                           Inventory storageInv, SpawnerData spawner, StoragePageHolder holder) {
-        PlayerInventory playerInv = player.getInventory();
-        ItemStack toTransfer = clickedItem.clone();
-        toTransfer.setAmount(amountToTake);
-
-        int amountMoved = 0;
-        int remaining = amountToTake;
-
-        // Optimize: Try to stack with existing items first (more efficient)
-        for (int i = 0; i < 36 && remaining > 0; i++) {
-            ItemStack slot = playerInv.getItem(i);
-
-            if (slot != null && slot.getType() != Material.AIR && slot.isSimilar(toTransfer)) {
-                // Found similar item - try to stack
-                int space = slot.getMaxStackSize() - slot.getAmount();
-                if (space > 0) {
-                    int add = Math.min(space, remaining);
-                    slot.setAmount(slot.getAmount() + add);
-                    amountMoved += add;
-                    remaining -= add;
-                }
-            }
+        if (!spawner.getInventoryLock().tryLock()) return;
+        StorageTransfer.Result result;
+        try {
+            if (spawner.isSelling()) return;
+            ItemStack requested = clickedItem.asQuantity(amountToTake);
+            result = StorageTransfer.take(player.getInventory(), List.of(requested),
+                    spawner::removeItemsAndUpdateSellValue, spawner::addItemsAndUpdateSellValue);
+        } finally {
+            spawner.getInventoryLock().unlock();
         }
-
-        // Then fill empty slots
-        for (int i = 0; i < 36 && remaining > 0; i++) {
-            ItemStack slot = playerInv.getItem(i);
-
-            if (slot == null || slot.getType() == Material.AIR) {
-                int stackSize = Math.min(remaining, toTransfer.getMaxStackSize());
-                ItemStack newStack = toTransfer.clone();
-                newStack.setAmount(stackSize);
-                playerInv.setItem(i, newStack);
-                amountMoved += stackSize;
-                remaining -= stackSize;
-            }
-        }
-
-        // Update VirtualInventory if any items were moved
-        if (amountMoved > 0) {
-            ItemStack removed = toTransfer.clone();
-            removed.setAmount(amountMoved);
-
-            if (spawner.removeItemsAndUpdateSellValue(List.of(removed))) {
-                // Update display efficiently
-                updatePageAfterRemoval(player, storageInv, spawner, holder);
-
-                // Single sound effect
-                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 1.0f);
-
-                // Notify if inventory was full
-                if (remaining > 0) {
-                    messageService.sendMessage(player, "inventory_full");
-                }
-            }
+        if (result.moved() > 0) {
+            updatePageAfterRemoval(player, storageInv, spawner, holder);
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1.0f);
+            if (result.moved() < amountToTake) messageService.sendMessage(player, "inventory_full");
+        } else if (result.stale()) {
+            updatePageContent(player, spawner, holder.getCurrentPage(), storageInv);
         } else {
-            // No items moved - inventory full
             messageService.sendMessage(player, "inventory_full");
         }
     }
@@ -399,8 +377,9 @@ public class SpawnerStorageAction implements Listener {
     private void updatePageAfterRemoval(Player player, Inventory inventory,
                                        SpawnerData spawner, StoragePageHolder holder) {
         // Recalculate pages
-        int newTotalPages = calculateTotalPages(spawner);
+        int newTotalPages = plugin.getSpawnerStorageUI().getTotalPages(spawner, holder.getViewFilter());
         int currentPage = holder.getCurrentPage();
+        int previousTotalPages = holder.getTotalPages();
 
         // Clamp to valid page range
         int adjustedPage = Math.max(1, Math.min(currentPage, newTotalPages));
@@ -416,7 +395,7 @@ public class SpawnerStorageAction implements Listener {
         spawnerStorageUI.updateDisplay(inventory, spawner, adjustedPage, newTotalPages);
 
         // Update title if pages changed
-        if (newTotalPages != currentPage || adjustedPage != currentPage) {
+        if (newTotalPages != previousTotalPages || adjustedPage != currentPage) {
             updateInventoryTitle(player, spawner, adjustedPage, newTotalPages);
         }
 
@@ -448,7 +427,7 @@ public class SpawnerStorageAction implements Listener {
             if (item != null && item.getType() != Material.AIR) {
                 pageItems.add(item.clone());
                 itemsFoundCount += item.getAmount();
-                inventory.setItem(i, null);
+
             }
         }
 
@@ -466,12 +445,19 @@ public class SpawnerStorageAction implements Listener {
 
         final int itemsFound = itemsFoundCount;
 
-        // Remove from VirtualInventory
-        spawner.removeItemsAndUpdateSellValue(pageItems);
-
+        // Reserve the complete batch before creating any world item entities.
+        if (!spawner.getInventoryLock().tryLock()) return false;
+        try {
+            if (spawner.isSelling() || !spawner.removeItemsAndUpdateSellValue(pageItems)) {
+                plugin.getSpawnerStorageUI().updateDisplay(inventory, spawner, holder.getCurrentPage(), -1);
+                return false;
+            }
+        } finally {
+            spawner.getInventoryLock().unlock();
+        }
         dropItemsInDirection(player, pageItems);
 
-        int newTotalPages = calculateTotalPages(spawner);
+        int newTotalPages = plugin.getSpawnerStorageUI().getTotalPages(spawner, holder.getViewFilter());
         if (holder.getCurrentPage() > newTotalPages) {
             holder.setCurrentPage(Math.max(1, newTotalPages));
         }
@@ -548,7 +534,7 @@ public class SpawnerStorageAction implements Listener {
         SpawnerStorageUI spawnerStorageUI = plugin.getSpawnerStorageUI();
         StoragePageHolder holder = (StoragePageHolder) inventory.getHolder(false);
 
-        int totalPages = calculateTotalPages(spawner);
+        int totalPages = spawnerStorageUI.getTotalPages(spawner, holder.getViewFilter());
 
         assert holder != null;
         holder.setTotalPages(totalPages);
@@ -557,7 +543,7 @@ public class SpawnerStorageAction implements Listener {
 
         spawnerStorageUI.updateDisplay(inventory, spawner, newPage, totalPages);
 
-        updateInventoryTitle(player, spawner, newPage, totalPages);
+        updateInventoryTitle(player, spawner, holder.getCurrentPage(), holder.getTotalPages());
 
     }
 
@@ -602,7 +588,14 @@ public class SpawnerStorageAction implements Listener {
         try {
             player.getOpenInventory().setTitle(newTitle);
         } catch (Exception e) {
-            openLootPage(player, spawner, page);
+            StoragePageHolder holder = (StoragePageHolder) player.getOpenInventory().getTopInventory().getHolder(false);
+            Inventory replacement = plugin.getSpawnerStorageUI().createStorageInventory(player, spawner, page, totalPages);
+            if (holder != null) {
+                StoragePageHolder replacementHolder = (StoragePageHolder) replacement.getHolder(false);
+                replacementHolder.setViewFilter(holder.getViewFilter());
+                plugin.getSpawnerStorageUI().updateDisplay(replacement, spawner, page, -1);
+            }
+            player.openInventory(replacement);
         }
     }
 
@@ -669,15 +662,16 @@ public class SpawnerStorageAction implements Listener {
             }
         }
 
-        // Set new sort preference
-        spawner.setPreferredSortItem(nextSort);
-
-        // Mark spawner as modified to save the preference
-        spawner.markStorageDirty();
+        if (!spawner.getInventoryLock().tryLock()) return false;
+        try {
+            if (spawner.isSelling()) return false;
+            spawner.setPreferredSortItem(nextSort);
+            spawner.getVirtualInventory().sortItems(nextSort);
+            spawner.markStorageDirty();
+        } finally {
+            spawner.getInventoryLock().unlock();
+        }
         spawnerManager.queueSpawnerForSaving(spawner.getSpawnerId());
-
-        // Re-sort VirtualInventory
-        spawner.getVirtualInventory().sortItems(nextSort);
 
         // Update GUI display to reflect VirtualInventory state
         StoragePageHolder holder = (StoragePageHolder) inventory.getHolder(false);
@@ -750,7 +744,7 @@ public class SpawnerStorageAction implements Listener {
         player.updateInventory();
 
         if (result.anyItemMoved) {
-            int newTotalPages = calculateTotalPages(spawner);
+            int newTotalPages = plugin.getSpawnerStorageUI().getTotalPages(spawner, holder.getViewFilter());
             int currentPage = holder.getCurrentPage();
 
             // Clamp current page to valid range (e.g., if on page 6 but only 5 pages remain)
@@ -804,76 +798,27 @@ public class SpawnerStorageAction implements Listener {
 
     private TransferResult transferItems(Player player, Inventory sourceInventory,
                                          Map<Integer, ItemStack> sourceItems, VirtualInventory virtualInv) {
-        boolean anyItemMoved = false;
-        boolean inventoryFull = false;
-        PlayerInventory playerInv = player.getInventory();
-        int totalAmountMoved = 0;
-        List<ItemStack> itemsToRemove = new ArrayList<>();
-
-        for (Map.Entry<Integer, ItemStack> entry : sourceItems.entrySet()) {
-            int sourceSlot = entry.getKey();
-            ItemStack itemToMove = entry.getValue();
-
-            int amountToMove = itemToMove.getAmount();
-            int amountMoved = 0;
-
-            for (int i = 0; i < 36 && amountToMove > 0; i++) {
-                ItemStack targetItem = playerInv.getItem(i);
-
-                if (targetItem == null || targetItem.getType() == Material.AIR) {
-                    ItemStack newStack = itemToMove.clone();
-                    newStack.setAmount(Math.min(amountToMove, itemToMove.getMaxStackSize()));
-                    playerInv.setItem(i, newStack);
-                    amountMoved += newStack.getAmount();
-                    amountToMove -= newStack.getAmount();
-                    anyItemMoved = true;
-                }
-                else if (targetItem.isSimilar(itemToMove)) {
-                    int spaceInStack = targetItem.getMaxStackSize() - targetItem.getAmount();
-                    if (spaceInStack > 0) {
-                        int addAmount = Math.min(spaceInStack, amountToMove);
-                        targetItem.setAmount(targetItem.getAmount() + addAmount);
-                        amountMoved += addAmount;
-                        amountToMove -= addAmount;
-                        anyItemMoved = true;
-                    }
-                }
-            }
-
-            if (amountMoved > 0) {
-                totalAmountMoved += amountMoved;
-
-                ItemStack movedItem = itemToMove.clone();
-                movedItem.setAmount(amountMoved);
-                itemsToRemove.add(movedItem);
-
-                if (amountMoved == itemToMove.getAmount()) {
-                    sourceInventory.setItem(sourceSlot, null);
-                } else {
-                    ItemStack remaining = itemToMove.clone();
-                    remaining.setAmount(itemToMove.getAmount() - amountMoved);
-                    sourceInventory.setItem(sourceSlot, remaining);
-                    inventoryFull = true;
-                }
-            }
-
-            if (inventoryFull) {
-                break;
-            }
+        StoragePageHolder holder = (StoragePageHolder) sourceInventory.getHolder(false);
+        SpawnerData spawner = holder.getSpawnerData();
+        if (!spawner.getInventoryLock().tryLock()) return new TransferResult(false, false, 0);
+        StorageTransfer.Result result;
+        List<ItemStack> requested = sourceItems.entrySet().stream().sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue).filter(Objects::nonNull).map(ItemStack::clone).toList();
+        int requestedCount = requested.stream().mapToInt(ItemStack::getAmount).sum();
+        try {
+            if (spawner.isSelling()) return new TransferResult(false, false, 0);
+            result = StorageTransfer.take(player.getInventory(), requested,
+                    spawner::removeItemsAndUpdateSellValue, spawner::addItemsAndUpdateSellValue);
+        } finally {
+            spawner.getInventoryLock().unlock();
         }
-
-        // Update VirtualInventory
-        if (!itemsToRemove.isEmpty()) {
-            StoragePageHolder holder = (StoragePageHolder) sourceInventory.getHolder(false);
-            SpawnerData spawnerData = holder.getSpawnerData();
-
-            spawnerData.removeItemsAndUpdateSellValue(itemsToRemove);
-            spawnerData.updateHologramData();
-
+        plugin.getSpawnerStorageUI().updateDisplay(sourceInventory, spawner, holder.getCurrentPage(), -1);
+        if (result.moved() > 0) {
+            spawner.markStorageDirty();
+            spawner.updateHologramData();
             holder.updateOldUsedSlots();
         }
-
-        return new TransferResult(anyItemMoved, inventoryFull, totalAmountMoved);
+        return new TransferResult(result.moved() > 0, !result.stale() && result.moved() < requestedCount, result.moved());
     }
 
 

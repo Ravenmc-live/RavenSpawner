@@ -175,6 +175,13 @@ public class RavenSpawners extends JavaPlugin implements RavenSpawnersPlugin {
     public void onEnable() {
         long startTime = System.currentTimeMillis();
         instance = this;
+        try {
+            github.nighter.ravenspawners.updates.RedGuiMigration.apply(this);
+        } catch (java.io.IOException exception) {
+            getLogger().log(java.util.logging.Level.SEVERE, "Unable to apply the GUI style", exception);
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         // Write config.yml and the bundled GUI layouts on first run, and top up
         // existing files with any new keys

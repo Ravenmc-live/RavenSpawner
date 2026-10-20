@@ -1,371 +1,201 @@
-# RavenSpawners – gui.yml
-# GUI item names, lore, titles, and button labels.
-
-# ──────────────────────────────────────────────────────
-#                  Main GUI
-# ──────────────────────────────────────────────────────
 gui_title_main:
-  single_spawner: 'ꜱᴘᴀᴡɴᴇʀ {ᴇɴᴛɪᴛʏ}'
-  stacked_spawner: '{amount} ꜱᴘᴀᴡɴᴇʀ {ᴇɴᴛɪᴛʏ}'
-
+  single_spawner: '&8ꜱᴘᴀᴡɴᴇʀ {ᴇɴᴛɪᴛʏ}'
+  stacked_spawner: '&8{amount} ꜱᴘᴀᴡɴᴇʀ {ᴇɴᴛɪᴛʏ}'
 spawner_storage_item:
-  # Available placeholders for name:
-  # {max_slots} - Maximum number of slots in the storage (formatted with commas)
-  # {current_items} - Current number of items in the storage
-  # {percent_storage_rounded} - Percentage of storage used (0-100)
-  # {entity} - The spawner's entity type (normal capitalization)
-  # {ᴇɴᴛɪᴛʏ} - The spawner's entity type (small caps)
-  name: '&fᴍở &#5DB5F1ᴋʜᴏ'
-
-  # Available placeholders for all lore lines:
-  # {max_slots} - Maximum number of slots in the storage (formatted with commas)
-  # {current_items} - Current number of items in the storage
-  # {percent_storage_rounded} - Percentage of storage used (0-100)
-  # {loot_items} - The complete formatted list of loot items
-  # {entity} - The spawner's entity type (normal capitalization)
-  # {ᴇɴᴛɪᴛʏ} - The spawner's entity type (small caps)
+  name: '&#FF1F1Fᴍở ᴋʜᴏ'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fTại đây bạn có thể xem'
-    - '   &fvà quản lý mọi vật phẩm'
-    - '   &ftrong spawner này.'
-    - ''
-    - ' &#5DB5F1★ ꜱứᴄ ᴄʜứᴀ: &f{percent_storage_rounded}%'
-    - '{loot_items}'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để mở kho!'
-
-  # This defines how each loot item will be displayed when using {loot_items}
-  # Available placeholders for each loot item:
-  # {item_name} - The name of the item (normal capitalization)
-  # {amount} - Number of items (formatted with commas)
-  # {raw_amount} - Number of items (without formatting)
-  # {chance} - The chance of this item dropping (with % symbol, e.g. "8.5%")
-  loot_items: '  &8• &f{item_name}&f: &e{amount}'
-  loot_items_empty: '  &8• &fKhông có vật phẩm'
-
-
-# Available placeholders:
-# {entity}           - Formatted entity name (e.g., "Zombie")
-# {ᴇɴᴛɪᴛʏ}           - Entity name in small caps (e.g., "ᴢᴏᴍʙɪᴇ")
-# {stack_size}       - Number of spawners stacked at this location
-# {range}            - Spawning range in blocks
-# {delay}            - Spawn delay in seconds
-# {min_mobs}         - Minimum number of mobs to spawn
-# {max_mobs}         - Maximum number of mobs to spawn
-# {current_items}    - Current number of items stored
-# {max_items}        - Maximum storage capacity for items
-# {percent_storage_rounded}  - Storage usage as integer percentage (e.g., "87")
-# {percent_storage_decimal} - Storage usage as formatted percentage with decimal (e.g., "87.5")
-# {current_exp}      - Current experience stored (formatted with commas)
-# {max_exp}          - Maximum experience capacity (formatted with commas)
-# {raw_current_exp}  - Raw current experience number
-# {raw_max_exp}      - Raw maximum experience number
-# {percent_exp_rounded}      - Experience storage as integer percentage
-# {percent_exp_decimal}    - Experience storage as formatted percentage with decimal (e.g., "42.7")
-# {time}             - Time until the next spawn, or a status text when inactive/full/no loot
-# {total_sell_price} - Total sell value currently stored in the spawner
+  - ''
+  - '&fTại đây bạn có thể xem'
+  - '   &fvà quản lý mọi vật phẩm'
+  - '   &ftrong spawner này.'
+  - ''
+  - ' &#FF1F1F★ ꜱứᴄ ᴄʜứᴀ: &f{percent_storage_rounded}%'
+  - '{loot_items}'
+  loot_items: '&f{item_name}&f: &#FF1F1F{amount}'
+  loot_items_empty: '&fKhông có vật phẩm'
 spawner_info_item:
-  name: ' &fᴛʜôɴɢ ᴛɪɴ &#5DB5F1ꜱᴘᴀᴡɴᴇʀ'
+  name: '&#FF1F1Fᴛʜôɴɢ ᴛɪɴ ꜱᴘᴀᴡɴᴇʀ'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜốɴɢ ᴋê:'
-    - '   &8• &fStack: &e{stack_size}'
-    - '   &8• &fPhạm vi: &e{range} &fkhối'
-    - '   &8• &fSinh vật: &e{min_mobs}&f-&e{max_mobs}'
-    - '   &8• &fThời gian chờ: &e{delay} &fgiây'
-    - ''
-    - ' &#5DB5F1★ ʟầɴ ꜱɪɴʜ ᴛɪếᴘ: &f{time}'
-    - '   &8• &fExp: &e{percent_exp_rounded}%'
-    - '   &8• &fKho: &e{percent_storage_rounded}%'
-    - '   &8• &fGiá trị bán: &a${total_sell_price}'
-    - ''
-    - '&#5DB5F1 ▸ Chuột trái: &fBán và nhận Exp'
-    - '&#5DB5F1 ▸ Chuột phải: &fMở stack'
+  - ''
+  - ' &#FF1F1Fℹ ᴛʜốɴɢ ᴋê:'
+  - '&fStack: &#FF1F1F{stack_size}'
+  - '&fPhạm vi: &#FF1F1F{range} &fkhối'
+  - '&fSinh vật: &#FF1F1F{min_mobs}&f-&#FF1F1F{max_mobs}'
+  - '&fThời gian chờ: &#FF1F1F{delay} &fgiây'
+  - ''
+  - ' &#FF1F1F★ ʟầɴ ꜱɪɴʜ ᴛɪếᴘ: &f{time}'
+  - '&fExp: &#FF1F1F{percent_exp_rounded}%'
+  - '&fKho: &#FF1F1F{percent_storage_rounded}%'
+  - '&fGiá trị bán: &#FF1F1F${total_sell_price}'
+  - ''
+  - '&#FF1F1F ▸ Chuột trái: &fBán và nhận Exp'
+  - '&#FF1F1F ▸ Chuột phải: &fMở stack'
   lore_no_shop:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜốɴɢ ᴋê:'
-    - '   &8• &fStack: &e{stack_size}'
-    - '   &8• &fPhạm vi: &e{range} &fkhối'
-    - '   &8• &fSinh vật: &e{min_mobs}&f-&e{max_mobs}'
-    - '   &8• &fThời gian chờ: &e{delay} &fgiây'
-    - ''
-    - ' &#5DB5F1★ ʟầɴ ꜱɪɴʜ ᴛɪếᴘ: &f{time}'
-    - '   &8• &fExp: &e{percent_exp_rounded}%'
-    - '   &8• &fKho: &e{percent_storage_rounded}%'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để mở stack!'
-  lore_full: '&#FF4444đã đầʏ ꜱứᴄ ᴄʜứᴀ'
-  lore_inactive: '&#FF4444ᴋʜôɴɢ ʜᴏạᴛ độɴɢ'
-  lore_no_loot: '&#FF4444ᴄʜưᴀ ᴄấᴜ ʜìɴʜ ᴠậᴛ ᴘʜẩᴍ ʀơɪ'
-
+  - ''
+  - ' &#FF1F1Fℹ ᴛʜốɴɢ ᴋê:'
+  - '&fStack: &#FF1F1F{stack_size}'
+  - '&fPhạm vi: &#FF1F1F{range} &fkhối'
+  - '&fSinh vật: &#FF1F1F{min_mobs}&f-&#FF1F1F{max_mobs}'
+  - '&fThời gian chờ: &#FF1F1F{delay} &fgiây'
+  - ''
+  - ' &#FF1F1F★ ʟầɴ ꜱɪɴʜ ᴛɪếᴘ: &f{time}'
+  - '&fExp: &#FF1F1F{percent_exp_rounded}%'
+  - '&fKho: &#FF1F1F{percent_storage_rounded}%'
+  lore_full: '&#FF1F1Fđã đầʏ ꜱứᴄ ᴄʜứᴀ'
+  lore_inactive: '&#FF1F1Fᴋʜôɴɢ ʜᴏạᴛ độɴɢ'
+  lore_no_loot: '&#FF1F1Fᴄʜưᴀ ᴄấᴜ ʜìɴʜ ᴠậᴛ ᴘʜẩᴍ ʀơɪ'
 exp_info_item:
-  name: '&fɴʜậɴ &#5DB5F1ᴇxᴘ'
+  name: '&#FF1F1Fɴʜậɴ ᴇxᴘ'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fNhận Exp hoặc dùng'
-    - '   &fExp để sửa chữa'
-    - '   &ftrang bị Mending &fcủa bạn.'
-    - ''
-    - ' &#5DB5F1★ ꜱứᴄ ᴄʜứᴀ: &f{percent_exp_rounded}%'
-    - '  &8• &fExp đã lưu: &a{current_exp}&f/&a{max_exp}'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để nhận Exp!'
-
-# ──────────────────────────────────────────────────────
-#              Spawner Stacker GUI
-# ──────────────────────────────────────────────────────
-gui_title_stacker: ꜱᴛᴀᴄᴋ ꜱᴘᴀᴡɴᴇʀ
-
+  - ''
+  - '&fNhận Exp hoặc dùng'
+  - '   &fExp để sửa chữa'
+  - '   &ftrang bị Mending &fcủa bạn.'
+  - ''
+  - ' &#FF1F1F★ ꜱứᴄ ᴄʜứᴀ: &f{percent_exp_rounded}%'
+  - '&fExp đã lưu: &#FF1F1F{current_exp}&f/&#FF1F1F{max_exp}'
+gui_title_stacker: '&8ꜱᴛᴀᴄᴋ ꜱᴘᴀᴡɴᴇʀ'
 button_spawner:
-  name: '&#5DB5F1ꜱᴘᴀᴡɴᴇʀ &f{ᴇɴᴛɪᴛʏ}'
+  name: '&#FF1F1Fꜱᴘᴀᴡɴᴇʀ {ᴇɴᴛɪᴛʏ}'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fSố lượng hiện tại: &e{stack_size}'
-    - '  &8• &fGiới hạn tối đa: &e{max_stack_size}'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để trở về menu chính!'
-
+  - ''
+  - '&fSố lượng hiện tại: &#FF1F1F{stack_size}'
+  - '&fGiới hạn tối đa: &#FF1F1F{max_stack_size}'
 button_remove:
-  name: '&fɢỡ ʙỏ &#FF6B6B-{amount}'
+  name: '&#FF1F1Fɢỡ ʙỏ -{amount}'
   lore:
-    - ''
-    - ' &#FF6B6B⚠ ʜàɴʜ độɴɢ:'
-    - '  &8• &fBạn sẽ gỡ &e{amount} &fspawner'
-    - '  &8• &fSố lượng hiện tại: &e{stack_size}'
-    - ''
-    - '&#FF6B6B ▸ Nhấp để gỡ khỏi stack!'
-
+  - ''
+  - ' &#FF1F1F⚠ ʜàɴʜ độɴɢ:'
+  - '&fBạn sẽ gỡ &#FF1F1F{amount} &fspawner'
+  - '&fSố lượng hiện tại: &#FF1F1F{stack_size}'
 button_add:
-  name: '&fᴛʜêᴍ &#5DB5F1+{amount}'
+  name: '&#FF1F1Fᴛʜêᴍ +{amount}'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ʜàɴʜ độɴɢ:'
-    - '  &8• &fBạn sẽ thêm &e{amount} &fspawner'
-    - '  &8• &fSố lượng hiện tại: &e{stack_size}'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để thêm vào stack!'
-
+  - ''
+  - ' &#FF1F1Fℹ ʜàɴʜ độɴɢ:'
+  - '&fBạn sẽ thêm &#FF1F1F{amount} &fspawner'
+  - '&fSố lượng hiện tại: &#FF1F1F{stack_size}'
 button_remove_all:
-  name: '&fɢỡ ʙỏ &#FF6B6Bᴛấᴛ ᴄả'
+  name: '&#FF1F1Fɢỡ ʙỏ ᴛấᴛ ᴄả'
   lore:
-    - ''
-    - ' &#FF6B6B⚠ ʜàɴʜ độɴɢ:'
-    - '  &8• &fBạn sẽ lấy hết toàn bộ stack.'
-    - '  &8• &fSố lượng hiện tại: &e{stack_size}'
-    - ''
-    - '&#FF6B6B ▸ Nhấp để làm trống stack!'
-
+  - ''
+  - ' &#FF1F1F⚠ ʜàɴʜ độɴɢ:'
+  - '&fBạn sẽ lấy hết toàn bộ stack.'
+  - '&fSố lượng hiện tại: &#FF1F1F{stack_size}'
 button_add_all:
-  name: '&fᴛʜêᴍ &#5DB5F1ᴛấᴛ ᴄả'
+  name: '&#FF1F1Fᴛʜêᴍ ᴛấᴛ ᴄả'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ʜàɴʜ độɴɢ:'
-    - '  &8• &fBạn sẽ thêm mọi spawner'
-    - '   &ftương thích trong túi đồ.'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để thêm tất cả!'
-
-# ──────────────────────────────────────────────────────
-#                Sell Confirmation GUI
-# ──────────────────────────────────────────────────────
-gui_title_sell_confirm: 'xáᴄ ɴʜậɴ ʙáɴ'
-
+  - ''
+  - ' &#FF1F1Fℹ ʜàɴʜ độɴɢ:'
+  - '&fBạn sẽ thêm mọi spawner'
+  - '   &ftương thích trong túi đồ.'
+gui_title_sell_confirm: '&8xáᴄ ɴʜậɴ ʙáɴ'
 button_sell_cancel:
-  name: '&fʜủʏ &#FF6B6Bʙáɴ'
+  name: '&#FF1F1Fʜủʏ ʙáɴ'
   lore:
-    - ''
-    - ' &#FF6B6B⚠ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fNhấp để quay lại'
-    - '   &fmà không bán gì cả.'
-    - ''
-    - '&#FF6B6B ▸ Nhấp để hủy!'
-
+  - ''
+  - '   &fmà không bán gì cả.'
 button_sell_confirm:
-  name: '&fxáᴄ ɴʜậɴ &#5DB5F1ʙáɴ'
+  name: '&#FF1F1Fxáᴄ ɴʜậɴ ʙáɴ'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bạn sẽ nhận:'
-    - '  &8• &fTiền: &a${total_sell_price}'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để xác nhận bán!'
-
+  - ''
+  - ' &#FF1F1Fℹ Bạn sẽ nhận:'
+  - '&fTiền: &#FF1F1F${total_sell_price}'
 button_sell_confirm_with_exp:
-  name: '&fxáᴄ ɴʜậɴ ʙáɴ &#5DB5F1ᴠà ᴇxᴘ'
+  name: '&#FF1F1Fxáᴄ ɴʜậɴ ʙáɴ ᴠà ᴇxᴘ'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bạn sẽ nhận:'
-    - '  &8• &fTiền: &a${total_sell_price}'
-    - '  &8• &fExp: &a{current_exp}'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để xác nhận!'
-
-# Available placeholders for button_sell_info:
-# {entity} - Formatted entity or item name
-# {ᴇɴᴛɪᴛʏ} - Entity or item name in small caps
-# {current_items} - Used storage slots
-# {max_items} - Maximum storage slots
-# {current_exp} - Stored experience
-# {total_sell_price} - Total sell value
-# {percent_storage_decimal} - Storage usage with 1 decimal (e.g., "87.5")
-# {percent_storage_rounded} - Storage usage rounded to whole number (e.g., "88")
-# {loot_items} - Expands to the generated loot item lines
-# Placeholders for button_sell_info.loot_items: {amount}, {item_name}, {chance}
+  - ''
+  - ' &#FF1F1Fℹ Bạn sẽ nhận:'
+  - '&fTiền: &#FF1F1F${total_sell_price}'
+  - '&fExp: &#FF1F1F{current_exp}'
 button_sell_info:
-  name: '&fʙáɴ &#5DB5F1ᴛổɴɢ ᴋếᴛ'
+  name: '&#FF1F1Fʙáɴ ᴛổɴɢ ᴋếᴛ'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '{loot_items}'
-    - '  &8• &a+ &fExp: &e{current_exp}'
-    - '  &8• &a+ &fTiền: &a${total_sell_price}'
-  loot_items: '  &8• &#FF6B6B- &f{item_name}&f: &e{amount}'
-  loot_items_empty: '  &8• &#FF6B6B- &fKhông có vật phẩm để bán'
-
-# ──────────────────────────────────────────────────────
-#             Spawner Storage GUI
-# ──────────────────────────────────────────────────────
-# Available placeholders for gui_title_storage:
-# {current_page}     - Current page number
-# {total_pages}      - Total number of pages
-# {entity}           - Formatted entity name (e.g., "Zombie")
-# {ᴇɴᴛɪᴛʏ}           - Entity name in small caps (e.g., "ᴢᴏᴍʙɪᴇ")
-# {amount}           - Number of spawners stacked
-gui_title_storage: '[{current_page}/{total_pages}] ᴋʜᴏ ꜱᴘᴀᴡɴᴇʀ'
-
+  - ''
+  - '{loot_items}'
+  - '&#FF1F1F+ &fExp: &#FF1F1F{current_exp}'
+  - '&#FF1F1F+ &fTiền: &#FF1F1F${total_sell_price}'
+  loot_items: '&#FF1F1F- &f{item_name}&f: &#FF1F1F{amount}'
+  loot_items_empty: '&#FF1F1F- &fKhông có vật phẩm để bán'
+gui_title_storage: '&8[{current_page}/{total_pages}] ᴋʜᴏ ꜱᴘᴀᴡɴᴇʀ'
 navigation_button_previous:
-  name: '&#37eb9aᴛʀᴀɴɢ ᴛʀướᴄ'
-  lore:
-    - '&#2cc483 ▸ &#f8f8ffNhấp để đến trang &#37eb9a{target_page}'
-
+  name: '&#FF1F1Fᴛʀᴀɴɢ ᴛʀướᴄ'
+  lore: []
 navigation_button_next:
-  name: '&#37eb9aᴛʀᴀɴɢ ꜱᴀᴜ'
-  lore:
-    - '&#2cc483 ▸ &#f8f8ffNhấp để đến trang &#37eb9a{target_page}'
-
+  name: '&#FF1F1Fᴛʀᴀɴɢ ꜱᴀᴜ'
+  lore: []
 sell_button:
-  name: '&fʙáɴ &aᴠậᴛ ᴘʜẩᴍ'
+  name: '&#FF1F1Fʙáɴ ᴠậᴛ ᴘʜẩᴍ'
   lore:
-    - ''
-    - ' &aℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fBạn sẽ bán tất cả vật phẩm'
-    - '   &ftrong kho.'
-    - ''
-    - '&a ▸ Nhấp để bán!'
-
+  - ''
+  - '&fBạn sẽ bán tất cả vật phẩm'
+  - '   &ftrong kho.'
 sell_and_exp_button:
-  name: '&fʙáɴ ᴠà &aɴʜậɴ ᴇxᴘ'
+  name: '&#FF1F1Fʙáɴ ᴠà ɴʜậɴ ᴇxᴘ'
   lore:
-    - ''
-    - ' &aℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fBạn sẽ bán tất cả vật phẩm'
-    - '   &fvà nhận Exp đã lưu.'
-    - '  &8• &fTổng ước tính: &a${total_sell_price}'
-    - ''
-    - '&a ▸ Nhấp để tiếp tục!'
-
+  - ''
+  - '&fBạn sẽ bán tất cả vật phẩm'
+  - '   &fvà nhận Exp đã lưu.'
+  - '&fTổng ước tính: &#FF1F1F${total_sell_price}'
 return_button:
-  name: '&fǫᴜᴀʏ ʟạɪ &#FF6B6Bᴍᴇɴᴜ ᴄʜíɴʜ'
+  name: '&#FF1F1Fǫᴜᴀʏ ʟạɪ ᴍᴇɴᴜ ᴄʜíɴʜ'
   lore:
-    - ''
-    - ' &#dadadaℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fNhấp để quay lại'
-    - '   &fvề menu trước.'
-    - ''
-    - '&c ▸ Nhấp để quay lại!'
-
+  - ''
+  - '   &fvề menu trước.'
 take_all_button:
-  name: '&fʟấʏ &#5DB5F1ᴛấᴛ ᴄả'
+  name: '&#FF1F1Fʟấʏ ᴛấᴛ ᴄả'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fBạn sẽ lấy tất cả'
-    - '   &fvật phẩm ở trang này.'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để lấy!'
-
+  - ''
+  - '&fBạn sẽ lấy tất cả'
+  - '   &fvật phẩm ở trang này.'
 item_filter_button:
-  name: '&fʟọᴄ &#5DB5F1ᴠậᴛ ᴘʜẩᴍ ʀơɪ'
+  name: '&#FF1F1Fʟọᴄ ᴠậᴛ ᴘʜẩᴍ ʀơɪ'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fCấu hình vật phẩm được phép'
-    - '   &fvà bị chặn cho spawner này.'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để cấu hình bộ lọc!'
-
+  - ''
+  - '&fCấu hình vật phẩm được phép'
+  - '   &fvà bị chặn cho spawner này.'
 sort_items_button:
-  name: '&fꜱắᴘ xếᴘ &#5DB5F1ᴠậᴛ ᴘʜẩᴍ'
+  name: '&#FF1F1Fꜱắᴘ xếᴘ ᴠậᴛ ᴘʜẩᴍ'
   lore:
-    - ''
-    - '{available_items}'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để sắp xếp!'
-  selected_item: ' &#5DB5F1• {item_name}'
+  - ''
+  - '{available_items}'
+  selected_item: ' &#FF1F1F• {item_name}'
   unselected_item: ' &f• {item_name}'
   no_item: ' &7• Không có'
-
 drop_page_button:
-  name: '&fᴛʜả &#FF6B6Bᴛʀᴀɴɢ'
+  name: '&#FF1F1Fᴛʜả ᴛʀᴀɴɢ'
   lore:
-    - ''
-    - ' &#FF6B6B⚠ ᴄảɴʜ ʙáᴏ:'
-    - '  &8• &fBạn sẽ thả mọi vật phẩm'
-    - '   &ftừ trang này xuống đất.'
-    - ''
-    - '&#FF6B6B ▸ Nhấp để thả!'
-
+  - ''
+  - '&fBạn sẽ thả mọi vật phẩm'
+  - '   &ftừ trang này xuống đất.'
 collect_exp_button:
-  name: '&fɴʜậɴ &#5DB5F1ᴇxᴘ'
+  name: '&#FF1F1Fɴʜậɴ ᴇxᴘ'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fExp khả dụng: &a{current_exp}'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để nhận Exp!'
-
+  - ''
+  - '&fExp khả dụng: &#FF1F1F{current_exp}'
 storage_spawner_info_button:
-  name: ''
+  name: '&#FF1F1F{entity} Spawner'
   lore:
-
-# ──────────────────────────────────────────────────────
-#             Filter Configuration GUI
-# ──────────────────────────────────────────────────────
-gui_title_filter_config: '    ᴄʜᴏ ᴘʜéᴘ           ʙị ᴄʜặɴ'
-
+  - ''
+  - '&fStack: &#FF1F1F{stack_size}'
+  - '&fStorage: &#FF1F1F{percent_storage_rounded}%'
+gui_title_filter_config: '&8Vật phẩm được tạo'
 filter_divider:
-  name: '&fᴛʜả &#5DB5F1ʟọᴄ'
+  name: '&#FF1F1FQuay lại'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ ᴛʜôɴɢ ᴛɪɴ:'
-    - '  &8• &fBên trái: vật phẩm được phép'
-    - '  &8• &fBên phải: vật phẩm bị chặn'
-    - ''
-    - '&#5DB5F1 ▸ Nhấp để trở về kho!'
-
+  - ''
+  - '&fTrở về kho đồ.'
 filter_item_allowed:
-  name: '&f{item_name}&#37eb9a được phép'
-  lore:
-    - '&#37eb9a ▸ &fNhấp để chặn vật phẩm này!'
-
+  name: '&#FF1F1F{item_name} được phép'
+  lore: []
 filter_item_blocked:
-  name: '&f{item_name}&#FF6B6B bị chặn'
-  lore:
-    - '&#FF6B6B ▸ &fNhấp để cho phép vật phẩm này!'
-
-# ──────────────────────────────────────────────────────
-#                  Bedrock Form GUI
-# ──────────────────────────────────────────────────────
+  name: '&#FF1F1F{item_name} bị chặn'
+  lore: []
 bedrock:
   main_gui:
-    title_single_spawner: 'Spawner {entity}'
-    title_stacked_spawner: '{amount} Spawner {entity}'
-
-    view_info_title: 'Spawner {entity} - Thông tin'
-
+    title_single_spawner: §8Spawner {entity}
+    title_stacked_spawner: §8{amount} Spawner {entity}
+    view_info_title: §8Spawner {entity} - Thông tin
     button_names:
       storage: Mở kho
       exp: Nhận Exp
@@ -374,7 +204,6 @@ bedrock:
       sell_all: Bán vật phẩm
       view_info: Xem thông tin
       back: Quay lại
-
     button_images:
       storage: https://i.pinimg.com/736x/7a/28/50/7a28504d8446ab0ad670757cfa32fe59.jpg
       stacker: https://cdn.modrinth.com/data/9tQwxSFr/f0f1cc267f587a39acd2c820cfe6b29d0f2ccae3.png
@@ -382,43 +211,25 @@ bedrock:
       sell_all: https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8a/Gold_Ingot_JE4_BE2.png/revision/latest?cb=20200224211607
       exp: https://minecraft.wiki/images/Bottle_o%27_Enchanting.gif
       view_info: https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/9f/Information_sign.png/revision/latest/scale-to-width-down/268?cb=20200105100749
-
-        # Available placeholders (same as spawner_info_item):
-        # {entity}           - Formatted entity name (e.g., "Zombie")
-        # {stack_size}       - Number of spawners stacked at this location
-        # {range}            - Spawning range in blocks
-        # {delay}            - Spawn delay in seconds
-        # {min_mobs}         - Minimum number of mobs to spawn
-        # {max_mobs}         - Maximum number of mobs to spawn
-        # {current_items}    - Current number of items stored
-        # {max_items}        - Maximum storage capacity for items
-        # {percent_storage_rounded}  - Storage usage as integer percentage (e.g., "87")
-        # {percent_storage_decimal} - Storage usage as formatted percentage with decimal (e.g., "87.5")
-        # {current_exp}      - Current experience stored (formatted with commas)
-        # {max_exp}          - Maximum experience capacity (formatted with commas)
-        # {raw_current_exp}  - Raw current experience number
-        # {raw_max_exp}      - Raw maximum experience number
-        # {percent_exp_rounded}      - Experience storage as integer percentage
-        # {percent_exp_decimal}    - Experience storage as formatted percentage with decimal (e.g., "42.7")
-
-      # IMPORTANT: Only use Bedrock-compatible color codes:
-    # §0=Black, §1=Dark Blue, §2=Dark Green, §3=Dark Aqua, §4=Dark Red, §5=Dark Purple
-    # §6=Gold, §7=Gray, §8=Dark Gray, §9=Blue, §a=Green, §b=Aqua, §c=Red
-    # §d=Light Purple, §e=Yellow, §f=White, §g=Minecoin Gold
     spawner_info:
-      - ''
-      - '§9☀ §fThông tin:'
-      - '  §8• §fStack: §e{stack_size}'
-      - '  §8• §fPhạm vi: §e{range} §7khối'
-      - '  §8• §fSinh vật: §e{min_mobs}§7-§e{max_mobs}'
-      - '  §8• §fThời gian chờ: §e{delay}§7 giây'
-      - ''
-      - '§9☀ §fKho:'
-      - '  §8• §fVật phẩm: §e{current_items}§7/§e{max_items}'
-      - '  §8• §fMức dùng: §e{percent_storage_decimal}%'
-      - ''
-      - '§a☀ §fKinh nghiệm:'
-      - '  §8• §fĐã lưu: §a{current_exp}§7/§a{max_exp} §7xp'
-      - '  §8• §fMức dùng: §a{percent_exp_decimal}%'
-      - ''
-      - '§a☀ §fGiá trị bán: §a${total_sell_price}'
+    - ''
+    - '§fStack: §c{stack_size}'
+    - '§fPhạm vi: §c{range} §7khối'
+    - '§fSinh vật: §c{min_mobs}§7-§c{max_mobs}'
+    - '§fThời gian chờ: §c{delay}§7 giây'
+    - ''
+    - '§c☀ §fKho:'
+    - '§fVật phẩm: §c{current_items}§7/§c{max_items}'
+    - '§fMức dùng: §c{percent_storage_decimal}%'
+    - ''
+    - '§c☀ §fKinh nghiệm:'
+    - '§fĐã lưu: §c{current_exp}§7/§c{max_exp} §7xp'
+    - '§fMức dùng: §c{percent_exp_decimal}%'
+    - ''
+    - '§c☀ §fGiá trị bán: §c${total_sell_price}'
+storage_view_filter:
+  name: '&#FF1F1FLọc kho đồ'
+  lore:
+  - ''
+  - '&fHiển thị: &#FF1F1F{item_name}'
+  all: Tất cả

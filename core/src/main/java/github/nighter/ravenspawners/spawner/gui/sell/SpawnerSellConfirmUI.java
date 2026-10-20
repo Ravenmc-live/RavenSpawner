@@ -248,7 +248,7 @@ public class SpawnerSellConfirmUI {
 
         EntityType entityType = spawner.getEntityType();
         EntityLootConfig lootConfig = plugin.getSpawnerSettingsConfig().getLootConfig(entityType);
-        List<LootItem> possibleLootItems = lootConfig != null ? lootConfig.getAllItems() : Collections.emptyList();
+        List<LootItem> possibleLootItems = lootConfig != null ? new ArrayList<>(lootConfig.getAllItems()) : Collections.emptyList();
 
         if (possibleLootItems.isEmpty() && storedItems.isEmpty()) {
             return Collections.emptyList();

@@ -134,6 +134,7 @@ public class SpawnerLootGenerator {
                         // Process items if there are any to add and inventory isn't completely full
                         if (!loot.items().isEmpty() && usedSlots.get() < maxSlots.get()) {
                             List<ItemStack> itemsToAdd = new ArrayList<>(loot.items());
+                            itemsToAdd.removeIf(item -> spawner.getFilteredItems().contains(item.getType()));
 
                             // Get exact calculation of slots with the new items
                             int totalRequiredSlots = calculateRequiredSlots(itemsToAdd, spawner.getVirtualInventory());
@@ -566,7 +567,8 @@ public class SpawnerLootGenerator {
                     if (items != null && !items.isEmpty()) {
                         List<ItemStack> validItems = new ArrayList<>();
                         for (ItemStack item : items) {
-                            if (item != null && item.getType() != Material.AIR) {
+                            if (item != null && item.getType() != Material.AIR
+                                    && !spawner.getFilteredItems().contains(item.getType())) {
                                 validItems.add(item.clone());
                             }
                         }

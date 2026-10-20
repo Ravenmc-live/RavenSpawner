@@ -97,7 +97,7 @@ public class SpawnerData {
     @Getter @Setter
     private VirtualInventory virtualInventory;
     @Getter
-    private final Set<Material> filteredItems = new HashSet<>();
+    private final Set<Material> filteredItems = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
     @Getter @Setter
     private String lastInteractedPlayer;
@@ -436,7 +436,8 @@ public class SpawnerData {
         updateHologramData();
     }
 
-    public boolean toggleItemFilter(Material material) {
+    public synchronized boolean toggleItemFilter(Material material) {
+        cachedHasNoLoot = null;
         boolean wasFiltered = filteredItems.contains(material);
         if (wasFiltered) {
             filteredItems.remove(material);
@@ -782,7 +783,8 @@ public class SpawnerData {
     }
 
     public synchronized List<ItemStack> getAndClearPreGeneratedItems() {
-        List<ItemStack> items = preGeneratedItems;
+        List<ItemStack> items = preGeneratedItems == null ? null : preGeneratedItems.stream()
+                .filter(item -> !filteredItems.contains(item.getType())).toList();
         preGeneratedItems = null;
         return items;
     }

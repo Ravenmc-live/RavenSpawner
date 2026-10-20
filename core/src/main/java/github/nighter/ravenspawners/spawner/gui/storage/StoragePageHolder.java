@@ -24,6 +24,13 @@ public class StoragePageHolder implements InventoryHolder, SpawnerHolder {
     public static final int ROWS_PER_PAGE = 5;
     public static final int MAX_ITEMS_PER_PAGE = 45; // Pre-calculated value
     private Inventory inventory;
+    @Getter
+    @lombok.Setter
+    private org.bukkit.Material viewFilter;
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
 
     public StoragePageHolder(SpawnerData spawnerData, int currentPage, int totalPages, GuiLayout layout) {
         this.spawnerData = spawnerData;
@@ -45,6 +52,7 @@ public class StoragePageHolder implements InventoryHolder, SpawnerHolder {
 
     public void setTotalPages(int totalPages) {
         this.totalPages = Math.max(1, totalPages);
+        this.currentPage = Math.max(1, Math.min(this.currentPage, this.totalPages));
     }
 
     public void updateOldUsedSlots() {

@@ -83,7 +83,7 @@ public class SpawnerStackerUI {
         Map<String, String> placeholders = createPlaceholders(spawner, amount);
         String name = languageManager.getGuiItemName("button_" + action + ".name", placeholders);
         String[] lore = languageManager.getGuiItemLore("button_" + action + ".lore", placeholders);
-        Material material = action.equals("add") ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE;
+        Material material = Material.RED_STAINED_GLASS_PANE;
         ItemStack button = createButton(material, name, lore);
         button.setAmount(Math.max(1, Math.min(amount, 64)));
         return button;
@@ -100,8 +100,7 @@ public class SpawnerStackerUI {
         Map<String, String> placeholders = createPlaceholders(spawner, 0);
         String name = languageManager.getGuiItemName("button_" + action + ".name", placeholders);
         String[] lore = languageManager.getGuiItemLore("button_" + action + ".lore", placeholders);
-        Material material = action.equals("add_all") ? Material.LIME_STAINED_GLASS_PANE
-                : Material.RED_STAINED_GLASS_PANE;
+        Material material = Material.RED_STAINED_GLASS_PANE;
         return createButton(material, name, lore);
     }
 

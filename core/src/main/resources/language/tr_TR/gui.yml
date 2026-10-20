@@ -1,424 +1,285 @@
-# RavenSpawners – gui.yml
-# GUI item names, lore, titles, and button labels.
-
-# ──────────────────────────────────────────────────────
-#                  Main GUI
-# ──────────────────────────────────────────────────────
 gui_title_main:
-  single_spawner: '{entity} Spawner'
-  stacked_spawner: '{amount}x {entity} Spawner'
-
+  single_spawner: '&8{entity} Spawner'
+  stacked_spawner: '&8{amount}x {entity} Spawner'
 spawner_storage_item:
-  # Available placeholders for name:
-  # {max_slots} - Maximum number of slots in the storage (formatted with commas)
-  # {current_items} - Current number of items in the storage
-  # {percent_storage_rounded} - Percentage of storage used (0-100)
-  # {entity} - The spawner's entity type (normal capitalization)
-  # {ᴇɴᴛɪᴛʏ} - The spawner's entity type (small caps)
-  name: '&fDepoyu &#5DB5F1Aç'
-
-  # Available placeholders for all lore lines:
-  # {max_slots} - Maximum number of slots in the storage (formatted with commas)
-  # {current_items} - Current number of items in the storage
-  # {percent_storage_rounded} - Percentage of storage used (0-100)
-  # {loot_items} - The complete formatted list of loot items
-  # {entity} - The spawner's entity type (normal capitalization)
-  # {ᴇɴᴛɪᴛʏ} - The spawner's entity type (small caps)
+  name: '&#FF1F1FDepoyu Aç'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bilgi:'
-    - '  &8• &fBu spawnerda biriken'
-    - '   &ftüm eşyaları buradan'
-    - '   &fgörebilir ve yönetebilirsin.'
-    - ''
-    - ' &#5DB5F1★ Kapasite: &f{percent_storage_rounded}%'
-    - '{loot_items}'
-    - ''
-    - '&#5DB5F1 ▸ Depoyu açmak için tıkla!'
-
-  # This defines how each loot item will be displayed when using {loot_items}
-  # Available placeholders for each loot item:
-  # {item_name} - The name of the item (normal capitalization)
-  # {amount} - Number of items (formatted with commas)
-  # {raw_amount} - Number of items (without formatting)
-  # {chance} - The chance of this item dropping (with % symbol, e.g. "8.5%")
-  loot_items: '  &8• &f{item_name}&f: &e{amount}'
-  loot_items_empty: '  &8• &fDepoda eşya yok'
-
-
-# Available placeholders:
-# {entity}           - Formatted entity name (e.g., "Zombie")
-# {ᴇɴᴛɪᴛʏ}           - Entity name in small caps (e.g., "ᴢᴏᴍʙɪᴇ")
-# {stack_size}       - Number of spawners stacked at this location
-# {range}            - Spawning range in blocks
-# {delay}            - Spawn delay in seconds
-# {min_mobs}         - Minimum number of mobs to spawn
-# {max_mobs}         - Maximum number of mobs to spawn
-# {current_items}    - Current number of items stored
-# {max_items}        - Maximum storage capacity for items
-# {percent_storage_rounded}  - Storage usage as integer percentage (e.g., "87")
-# {percent_storage_decimal} - Storage usage as formatted percentage with decimal (e.g., "87.5")
-# {current_exp}      - Current experience stored (formatted with commas)
-# {max_exp}          - Maximum experience capacity (formatted with commas)
-# {raw_current_exp}  - Raw current experience number
-# {raw_max_exp}      - Raw maximum experience number
-# {percent_exp_rounded}      - Experience storage as integer percentage
-# {percent_exp_decimal}    - Experience storage as formatted percentage with decimal (e.g., "42.7")
-# {time}             - Time until the next spawn, or a status text when inactive/full/no loot
-# {total_sell_price} - Total sell value currently stored in the spawner
+  - ''
+  - '&fBu spawnerda biriken'
+  - '   &ftüm eşyaları buradan'
+  - '   &fgörebilir ve yönetebilirsin.'
+  - ''
+  - ' &#FF1F1F★ Kapasite: &f{percent_storage_rounded}%'
+  - '{loot_items}'
+  - ''
+  - '&#FF1F1F ▸ Depoyu açmak için tıkla!'
+  loot_items: '&f{item_name}&f: &#FF1F1F{amount}'
+  loot_items_empty: '&fDepoda eşya yok'
 spawner_info_item:
-  name: ' &fSpawner &#5DB5F1Bilgisi'
+  name: '&#FF1F1FSpawner Bilgisi'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ İstatistikler:'
-    - '   &8• &fStack: &e{stack_size}'
-    - '   &8• &fMenzil: &e{range} &fblok'
-    - '   &8• &fDoğma: &e{min_mobs}&f-&e{max_mobs} &fadet'
-    - '   &8• &fGecikme: &e{delay} &fsaniye'
-    - ''
-    - ' &#5DB5F1★ Sonraki Doğma: &f{time}'
-    - '   &8• &fXP: &e{percent_exp_rounded}%'
-    - '   &8• &fDepo: &e{percent_storage_rounded}%'
-    - '   &8• &fSatış Değeri: &a${total_sell_price}'
-    - ''
-    - '&#5DB5F1 ▸ Sol Tık: &fSatış yap & XP topla'
-    - '&#5DB5F1 ▸ Sağ Tık: &fStack menüsünü aç'
+  - ''
+  - ' &#FF1F1Fℹ İstatistikler:'
+  - '&fStack: &#FF1F1F{stack_size}'
+  - '&fMenzil: &#FF1F1F{range} &fblok'
+  - '&fDoğma: &#FF1F1F{min_mobs}&f-&#FF1F1F{max_mobs} &fadet'
+  - '&fGecikme: &#FF1F1F{delay} &fsaniye'
+  - ''
+  - ' &#FF1F1F★ Sonraki Doğma: &f{time}'
+  - '&fXP: &#FF1F1F{percent_exp_rounded}%'
+  - '&fDepo: &#FF1F1F{percent_storage_rounded}%'
+  - '&fSatış Değeri: &#FF1F1F${total_sell_price}'
+  - ''
+  - '&#FF1F1F ▸ Sol Tık: &fSatış yap & XP topla'
+  - '&#FF1F1F ▸ Sağ Tık: &fStack menüsünü aç'
   lore_no_shop:
-    - ''
-    - ' &#5DB5F1ℹ İstatistikler:'
-    - '   &8• &fStack: &e{stack_size}'
-    - '   &8• &fMenzil: &e{range} &fblok'
-    - '   &8• &fDoğma: &e{min_mobs}&f-&e{max_mobs} &fadet'
-    - '   &8• &fGecikme: &e{delay} &fsaniye'
-    - ''
-    - ' &#5DB5F1★ Sonraki Doğma: &f{time}'
-    - '   &8• &fXP: &e{percent_exp_rounded}%'
-    - '   &8• &fDepo: &e{percent_storage_rounded}%'
-    - ''
-    - '&#5DB5F1 ▸ Stack menüsünü açmak için tıkla!'
-  lore_full: '&#FF4444Kapasite Dolu'
-  lore_inactive: '&#FF4444İnaktif'
-  lore_no_loot: '&#FF4444Düşen Eşya Ayarlanmamış'
-
+  - ''
+  - ' &#FF1F1Fℹ İstatistikler:'
+  - '&fStack: &#FF1F1F{stack_size}'
+  - '&fMenzil: &#FF1F1F{range} &fblok'
+  - '&fDoğma: &#FF1F1F{min_mobs}&f-&#FF1F1F{max_mobs} &fadet'
+  - '&fGecikme: &#FF1F1F{delay} &fsaniye'
+  - ''
+  - ' &#FF1F1F★ Sonraki Doğma: &f{time}'
+  - '&fXP: &#FF1F1F{percent_exp_rounded}%'
+  - '&fDepo: &#FF1F1F{percent_storage_rounded}%'
+  - ''
+  - '&#FF1F1F ▸ Stack menüsünü açmak için tıkla!'
+  lore_full: '&#FF1F1FKapasite Dolu'
+  lore_inactive: '&#FF1F1Fİnaktif'
+  lore_no_loot: '&#FF1F1FDüşen Eşya Ayarlanmamış'
 exp_info_item:
-  name: '&fXP &#5DB5F1Topla'
+  name: '&#FF1F1FXP Topla'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bilgi:'
-    - '  &8• &fBiriken XP''yi topla veya'
-    - '   &fTamir basılı eşyalarını'
-    - '   &fonarmak için kullan.'
-    - ''
-    - ' &#5DB5F1★ Kapasite: &f{percent_exp_rounded}%'
-    - '  &8• &fBiriken XP: &a{current_exp}&f/&a{max_exp}'
-    - ''
-    - '&#5DB5F1 ▸ XP toplamak için tıkla!'
-
-# ──────────────────────────────────────────────────────
-#              Spawner Stacker GUI
-# ──────────────────────────────────────────────────────
-gui_title_stacker: 'Spawner Birleştirici'
-
+  - ''
+  - '&fBiriken XP''yi topla veya'
+  - '   &fTamir basılı eşyalarını'
+  - '   &fonarmak için kullan.'
+  - ''
+  - ' &#FF1F1F★ Kapasite: &f{percent_exp_rounded}%'
+  - '&fBiriken XP: &#FF1F1F{current_exp}&f/&#FF1F1F{max_exp}'
+  - ''
+  - '&#FF1F1F ▸ XP toplamak için tıkla!'
+gui_title_stacker: '&8Spawner Birleştirici'
 button_spawner:
-  name: '&f{entity} &#5DB5F1Spawner'
+  name: '&#FF1F1F{entity} Spawner'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bilgi:'
-    - '  &8• &fMevcut stack: &e{stack_size}'
-    - '  &8• &fMaksimum sınır: &e{max_stack_size}'
-    - ''
-    - '&#5DB5F1 ▸ Ana menüye dönmek için tıkla!'
-
+  - ''
+  - '&fMevcut stack: &#FF1F1F{stack_size}'
+  - '&fMaksimum sınır: &#FF1F1F{max_stack_size}'
+  - ''
+  - '&#FF1F1F ▸ Ana menüye dönmek için tıkla!'
 button_remove:
-  name: '&fKaldır: &#FF6B6B-{amount}'
+  name: '&#FF1F1FKaldır: -{amount}'
   lore:
-    - ''
-    - ' &#FF6B6B⚠ İşlem:'
-    - '  &8• &fStackten &e{amount} &fspawner alacaksın.'
-    - '  &8• &fMevcut stack: &e{stack_size}'
-    - ''
-    - '&#FF6B6B ▸ Stackten çıkarmak için tıkla!'
-
+  - ''
+  - ' &#FF1F1F⚠ İşlem:'
+  - '&fStackten &#FF1F1F{amount} &fspawner alacaksın.'
+  - '&fMevcut stack: &#FF1F1F{stack_size}'
+  - ''
+  - '&#FF1F1F ▸ Stackten çıkarmak için tıkla!'
 button_add:
-  name: '&fEkle: &#5DB5F1+{amount}'
+  name: '&#FF1F1FEkle: +{amount}'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ İşlem:'
-    - '  &8• &fStacke &e{amount} &fspawner ekleyeceksin.'
-    - '  &8• &fMevcut stack: &e{stack_size}'
-    - ''
-    - '&#5DB5F1 ▸ Stacke eklemek için tıkla!'
-
+  - ''
+  - ' &#FF1F1Fℹ İşlem:'
+  - '&fStacke &#FF1F1F{amount} &fspawner ekleyeceksin.'
+  - '&fMevcut stack: &#FF1F1F{stack_size}'
+  - ''
+  - '&#FF1F1F ▸ Stacke eklemek için tıkla!'
 button_remove_all:
-  name: '&fHepsini &#FF6B6BKaldır'
+  name: '&#FF1F1FHepsini Kaldır'
   lore:
-    - ''
-    - ' &#FF6B6B⚠ İşlem:'
-    - '  &8• &fTüm stacki boşaltacaksın.'
-    - '  &8• &fMevcut stack: &e{stack_size}'
-    - ''
-    - '&#FF6B6B ▸ Stacki tamamen boşaltmak için tıkla!'
-
+  - ''
+  - ' &#FF1F1F⚠ İşlem:'
+  - '&fTüm stacki boşaltacaksın.'
+  - '&fMevcut stack: &#FF1F1F{stack_size}'
+  - ''
+  - '&#FF1F1F ▸ Stacki tamamen boşaltmak için tıkla!'
 button_add_all:
-  name: '&fHepsini &#5DB5F1Ekle'
+  name: '&#FF1F1FHepsini Ekle'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ İşlem:'
-    - '  &8• &fEnvanterindeki tüm uygun'
-    - '   &fspawnerları buraya eklersin.'
-    - ''
-    - '&#5DB5F1 ▸ Hepsini eklemek için tıkla!'
-
-# ──────────────────────────────────────────────────────
-#                Sell Confirmation GUI
-# ──────────────────────────────────────────────────────
-gui_title_sell_confirm: 'Satışı Onayla'
-
+  - ''
+  - ' &#FF1F1Fℹ İşlem:'
+  - '&fEnvanterindeki tüm uygun'
+  - '   &fspawnerları buraya eklersin.'
+  - ''
+  - '&#FF1F1F ▸ Hepsini eklemek için tıkla!'
+gui_title_sell_confirm: '&8Satışı Onayla'
 button_sell_cancel:
-  name: '&fSatışı &#FF6B6Bİptal Et'
+  name: '&#FF1F1FSatışı İptal Et'
   lore:
-    - ''
-    - ' &#FF6B6B⚠ Bilgi:'
-    - '  &8• &fHiçbir şey satmadan'
-    - '   &fgeri dönmek için tıkla.'
-    - ''
-    - '&#FF6B6B ▸ İptal etmek için tıkla!'
-
+  - ''
+  - '&fHiçbir şey satmadan'
+  - '   &fgeri dönmek için tıkla.'
+  - ''
+  - '&#FF1F1F ▸ İptal etmek için tıkla!'
 button_sell_confirm:
-  name: '&fSatışı &#5DB5F1Onayla'
+  name: '&#FF1F1FSatışı Onayla'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Kazanacağın:'
-    - '  &8• &fPara: &a${total_sell_price}'
-    - ''
-    - '&#5DB5F1 ▸ Satışı onaylamak için tıkla!'
-
+  - ''
+  - ' &#FF1F1Fℹ Kazanacağın:'
+  - '&fPara: &#FF1F1F${total_sell_price}'
+  - ''
+  - '&#FF1F1F ▸ Satışı onaylamak için tıkla!'
 button_sell_confirm_with_exp:
-  name: '&fSatışı Onayla &#5DB5F1ve XP Al'
+  name: '&#FF1F1FSatışı Onayla ve XP Al'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Kazanacağın:'
-    - '  &8• &fPara: &a${total_sell_price}'
-    - '  &8• &fXP: &a{current_exp}'
-    - ''
-    - '&#5DB5F1 ▸ Onaylamak için tıkla!'
-
-# Available placeholders for button_sell_info:
-# {entity} - Formatted entity or item name
-# {ᴇɴᴛɪᴛʏ} - Entity or item name in small caps
-# {current_items} - Used storage slots
-# {max_items} - Maximum storage slots
-# {current_exp} - Stored experience
-# {total_sell_price} - Total sell value
-# {percent_storage_decimal} - Storage usage with 1 decimal (e.g., "87.5")
-# {percent_storage_rounded} - Storage usage rounded to whole number (e.g., "88")
-# {loot_items} - Expands to the generated loot item lines
-# Placeholders for button_sell_info.loot_items: {amount}, {item_name}, {chance}
+  - ''
+  - ' &#FF1F1Fℹ Kazanacağın:'
+  - '&fPara: &#FF1F1F${total_sell_price}'
+  - '&fXP: &#FF1F1F{current_exp}'
+  - ''
+  - '&#FF1F1F ▸ Onaylamak için tıkla!'
 button_sell_info:
-  name: '&fSatış &#5DB5F1Özeti'
+  name: '&#FF1F1FSatış Özeti'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bilgi:'
-    - '{loot_items}'
-    - '  &8• &a+ &fXP: &e{current_exp}'
-    - '  &8• &a+ &fPara: &a${total_sell_price}'
-  loot_items: '  &8• &#FF6B6B- &f{item_name}&f: &e{amount}'
-  loot_items_empty: '  &8• &#FF6B6B- &fSatılacak eşya yok'
-
-# ──────────────────────────────────────────────────────
-#             Spawner Storage GUI
-# ──────────────────────────────────────────────────────
-# Available placeholders for gui_title_storage:
-# {current_page}     - Current page number
-# {total_pages}      - Total number of pages
-# {entity}           - Formatted entity name (e.g., "Zombie")
-# {ᴇɴᴛɪᴛʏ}           - Entity name in small caps (e.g., "ᴢᴏᴍʙɪᴇ")
-# {amount}           - Number of spawners stacked
-gui_title_storage: '[{current_page}/{total_pages}] Spawner Deposu'
-
+  - ''
+  - '{loot_items}'
+  - '&#FF1F1F+ &fXP: &#FF1F1F{current_exp}'
+  - '&#FF1F1F+ &fPara: &#FF1F1F${total_sell_price}'
+  loot_items: '&#FF1F1F- &f{item_name}&f: &#FF1F1F{amount}'
+  loot_items_empty: '&#FF1F1F- &fSatılacak eşya yok'
+gui_title_storage: '&8[{current_page}/{total_pages}] Spawner Deposu'
 navigation_button_previous:
-  name: '&#37eb9aÖnceki Sayfa'
+  name: '&#FF1F1FÖnceki Sayfa'
   lore:
-    - '&#2cc483 ▸ &#f8f8ffSayfa &#37eb9a{target_page}&#f8f8ff''e gitmek için tıkla'
-
+  - ''
+  - '&#FF1F1F ▸ &#FF1F1FSayfa &#FF1F1F{target_page}&#FF1F1F''e gitmek için tıkla'
 navigation_button_next:
-  name: '&#37eb9aSonraki Sayfa'
+  name: '&#FF1F1FSonraki Sayfa'
   lore:
-    - '&#2cc483 ▸ &#f8f8ffSayfa &#37eb9a{target_page}&#f8f8ff''e gitmek için tıkla'
-
+  - ''
+  - '&#FF1F1F ▸ &#FF1F1FSayfa &#FF1F1F{target_page}&#FF1F1F''e gitmek için tıkla'
 sell_button:
-  name: '&fEşyaları &aSat'
+  name: '&#FF1F1FEşyaları Sat'
   lore:
-    - ''
-    - ' &aℹ Bilgi:'
-    - '  &8• &fDepodaki tüm eşyaları'
-    - '   &fsatıp paraya çevirirsin.'
-    - ''
-    - '&a ▸ Satmak için tıkla!'
-
+  - ''
+  - '&fDepodaki tüm eşyaları'
+  - '   &fsatıp paraya çevirirsin.'
+  - ''
+  - '&#FF1F1F ▸ Satmak için tıkla!'
 sell_and_exp_button:
-  name: '&fSat ve &aXP Topla'
+  name: '&#FF1F1FSat ve XP Topla'
   lore:
-    - ''
-    - ' &aℹ Bilgi:'
-    - '  &8• &fTüm eşyaları satar ve'
-    - '   &fbiriken XP''yi toplarsın.'
-    - '  &8• &fTahmini Kazanç: &a${total_sell_price}'
-    - ''
-    - '&a ▸ Devam etmek için tıkla!'
-
+  - ''
+  - '&fTüm eşyaları satar ve'
+  - '   &fbiriken XP''yi toplarsın.'
+  - '&fTahmini Kazanç: &#FF1F1F${total_sell_price}'
+  - ''
+  - '&#FF1F1F ▸ Devam etmek için tıkla!'
 return_button:
-  name: '&fAna Menüye &#FF6B6BDön'
+  name: '&#FF1F1FAna Menüye Dön'
   lore:
-    - ''
-    - ' &#dadadaℹ Bilgi:'
-    - '  &8• &fBir önceki menüye'
-    - '   &fdönmek için tıkla.'
-    - ''
-    - '&c ▸ Geri dönmek için tıkla!'
-
+  - ''
+  - '&fBir önceki menüye'
+  - '   &fdönmek için tıkla.'
+  - ''
+  - '&#FF1F1F ▸ Geri dönmek için tıkla!'
 take_all_button:
-  name: '&fHepsini &#5DB5F1Al'
+  name: '&#FF1F1FHepsini Al'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bilgi:'
-    - '  &8• &fBu sayfadaki tüm'
-    - '   &feşyaları envanterine alırsın.'
-    - ''
-    - '&#5DB5F1 ▸ Almak için tıkla!'
-
+  - ''
+  - '&fBu sayfadaki tüm'
+  - '   &feşyaları envanterine alırsın.'
+  - ''
+  - '&#FF1F1F ▸ Almak için tıkla!'
 item_filter_button:
-  name: '&fDüşenleri &#5DB5F1Filtrele'
+  name: '&#FF1F1FDüşenleri Filtrele'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bilgi:'
-    - '  &8• &fBu spawner için izin verilen'
-    - '   &fve engellenen eşyaları ayarla.'
-    - ''
-    - '&#5DB5F1 ▸ Filtreleri ayarlamak için tıkla!'
-
+  - ''
+  - '&fBu spawner için izin verilen'
+  - '   &fve engellenen eşyaları ayarla.'
+  - ''
+  - '&#FF1F1F ▸ Filtreleri ayarlamak için tıkla!'
 sort_items_button:
-  name: '&fEşyaları &#5DB5F1Sırala'
+  name: '&#FF1F1FEşyaları Sırala'
   lore:
-    - ''
-    - '{available_items}'
-    - ''
-    - '&#5DB5F1 ▸ Sıralamak için tıkla!'
-  selected_item: ' &#5DB5F1• {item_name}'
+  - ''
+  - '{available_items}'
+  - ''
+  - '&#FF1F1F ▸ Sıralamak için tıkla!'
+  selected_item: ' &#FF1F1F• {item_name}'
   unselected_item: ' &f• {item_name}'
   no_item: ' &7• Yok'
-
 drop_page_button:
-  name: '&fHepsini &#FF6B6BYere At'
+  name: '&#FF1F1FHepsini Yere At'
   lore:
-    - ''
-    - ' &#FF6B6B⚠ Uyarı:'
-    - '  &8• &fBu sayfadaki tüm eşyaları'
-    - '   &fyere fırlatırsın.'
-    - ''
-    - '&#FF6B6B ▸ Yere atmak için tıkla!'
-
+  - ''
+  - ' &#FF1F1F⚠ Uyarı:'
+  - '&fBu sayfadaki tüm eşyaları'
+  - '   &fyere fırlatırsın.'
+  - ''
+  - '&#FF1F1F ▸ Yere atmak için tıkla!'
 collect_exp_button:
-  name: '&fXP &#5DB5F1Topla'
+  name: '&#FF1F1FXP Topla'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bilgi:'
-    - '  &8• &fMevcut XP: &a{current_exp}'
-    - ''
-    - '&#5DB5F1 ▸ Toplamak için tıkla!'
-
+  - ''
+  - '&fMevcut XP: &#FF1F1F{current_exp}'
+  - ''
+  - '&#FF1F1F ▸ Toplamak için tıkla!'
 storage_spawner_info_button:
-  name: ''
+  name: '&#FF1F1F{entity} Spawner'
   lore:
-
-# ──────────────────────────────────────────────────────
-#             Filter Configuration GUI
-# ──────────────────────────────────────────────────────
-gui_title_filter_config: 'İzin Verilen           Engellenen'
-
+  - ''
+  - '&fStack: &#FF1F1F{stack_size}'
+  - '&fStorage: &#FF1F1F{percent_storage_rounded}%'
+gui_title_filter_config: '&8Üretilen Eşyalar'
 filter_divider:
-  name: '&fEşya &#5DB5F1Filtresi'
+  name: '&#FF1F1FGeri'
   lore:
-    - ''
-    - ' &#5DB5F1ℹ Bilgi:'
-    - '  &8• &fSol taraf: İzin verilen eşyalar'
-    - '  &8• &fSağ taraf: Engellenen eşyalar'
-    - ''
-    - '&#5DB5F1 ▸ Depoya dönmek için tıkla!'
-
+  - ''
+  - '&fDepoya dön.'
 filter_item_allowed:
-  name: '&f{item_name}&#37eb9a düşebilir'
+  name: '&#FF1F1F{item_name} düşebilir'
   lore:
-    - '&#37eb9a ▸ &fBu eşyayı engellemek için tıkla!'
-
+  - ''
+  - '&#FF1F1F ▸ &fBu eşyayı engellemek için tıkla!'
 filter_item_blocked:
-  name: '&f{item_name}&#FF6B6B engellendi'
+  name: '&#FF1F1F{item_name} engellendi'
   lore:
-    - '&#FF6B6B ▸ &fBu eşyaya izin vermek için tıkla!'
-
-# ──────────────────────────────────────────────────────
-#                  Bedrock Form GUI
-# ──────────────────────────────────────────────────────
+  - ''
+  - '&#FF1F1F ▸ &fBu eşyaya izin vermek için tıkla!'
 bedrock:
   main_gui:
-    title_single_spawner: '{entity} Spawner'
-    title_stacked_spawner: '{amount}x {entity} Spawner'
-
-    view_info_title: '{entity} Spawner - Bilgi'
-
+    title_single_spawner: §8{entity} Spawner
+    title_stacked_spawner: §8{amount}x {entity} Spawner
+    view_info_title: §8{entity} Spawner - Bilgi
     button_names:
-      storage: 'Depoyu Aç'
-      exp: 'XP Topla'
-      stacker: 'Stack Yönet'
-      sell_and_exp: 'Sat + XP Topla'
-      sell_all: 'Eşyaları Sat'
-      view_info: 'Bilgileri Gör'
-      back: 'Geri'
-
+      storage: Depoyu Aç
+      exp: XP Topla
+      stacker: Stack Yönet
+      sell_and_exp: Sat + XP Topla
+      sell_all: Eşyaları Sat
+      view_info: Bilgileri Gör
+      back: Geri
     button_images:
-      storage: 'https://i.pinimg.com/736x/7a/28/50/7a28504d8446ab0ad670757cfa32fe59.jpg'
-      stacker: 'https://cdn.modrinth.com/data/9tQwxSFr/f0f1cc267f587a39acd2c820cfe6b29d0f2ccae3.png'
-      sell_and_exp: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8a/Gold_Ingot_JE4_BE2.png/revision/latest?cb=20200224211607'
-      sell_all: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8a/Gold_Ingot_JE4_BE2.png/revision/latest?cb=20200224211607'
-      exp: 'https://minecraft.wiki/images/Bottle_o%27_Enchanting.gif'
-      view_info: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/9f/Information_sign.png/revision/latest/scale-to-width-down/268?cb=20200105100749'
-
-    # Available placeholders (same as spawner_info_item):
-    # {entity}           - Formatted entity name (e.g., "Zombie")
-    # {stack_size}       - Number of spawners stacked at this location
-    # {range}            - Spawning range in blocks
-    # {delay}            - Spawn delay in seconds
-    # {min_mobs}         - Minimum number of mobs to spawn
-    # {max_mobs}         - Maximum number of mobs to spawn
-    # {current_items}    - Current number of items stored
-    # {max_items}        - Maximum storage capacity for items
-    # {percent_storage_rounded}  - Storage usage as integer percentage (e.g., "87")
-    # {percent_storage_decimal} - Storage usage as formatted percentage with decimal (e.g., "87.5")
-    # {current_exp}      - Current experience stored (formatted with commas)
-    # {max_exp}          - Maximum experience capacity (formatted with commas)
-    # {raw_current_exp}  - Raw current experience number
-    # {raw_max_exp}      - Raw maximum experience number
-    # {percent_exp_rounded}      - Experience storage as integer percentage
-    # {percent_exp_decimal}    - Experience storage as formatted percentage with decimal (e.g., "42.7")
-
-    # IMPORTANT: Only use Bedrock-compatible color codes:
-    # §0=Black, §1=Dark Blue, §2=Dark Green, §3=Dark Aqua, §4=Dark Red, §5=Dark Purple
-    # §6=Gold, §7=Gray, §8=Dark Gray, §9=Blue, §a=Green, §b=Aqua, §c=Red
-    # §d=Light Purple, §e=Yellow, §f=White, §g=Minecoin Gold
+      storage: https://i.pinimg.com/736x/7a/28/50/7a28504d8446ab0ad670757cfa32fe59.jpg
+      stacker: https://cdn.modrinth.com/data/9tQwxSFr/f0f1cc267f587a39acd2c820cfe6b29d0f2ccae3.png
+      sell_and_exp: https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8a/Gold_Ingot_JE4_BE2.png/revision/latest?cb=20200224211607
+      sell_all: https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8a/Gold_Ingot_JE4_BE2.png/revision/latest?cb=20200224211607
+      exp: https://minecraft.wiki/images/Bottle_o%27_Enchanting.gif
+      view_info: https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/9f/Information_sign.png/revision/latest/scale-to-width-down/268?cb=20200105100749
     spawner_info:
-      - ''
-      - '§9☀ §fBilgiler:'
-      - '  §8• §fStack: §e{stack_size}'
-      - '  §8• §fMenzil: §e{range} §7blok'
-      - '  §8• §fDoğma: §e{min_mobs}§7-§e{max_mobs}'
-      - '  §8• §fGecikme: §e{delay}§7sn'
-      - ''
-      - '§9☀ §fDepo:'
-      - '  §8• §fEşyalar: §e{current_items}§7/§e{max_items}'
-      - '  §8• §fDoluluk: §e{percent_storage_decimal}%'
-      - ''
-      - '§a☀ §fTecrübe Puanı:'
-      - '  §8• §fBiriken: §a{current_exp}§7/§a{max_exp} §7xp'
-      - '  §8• §fDoluluk: §a{percent_exp_decimal}%'
-      - ''
-      - '§a☀ §fSatış Değeri: §a${total_sell_price}'
+    - ''
+    - '§c☀ §fBilgiler:'
+    - '§fStack: §c{stack_size}'
+    - '§fMenzil: §c{range} §7blok'
+    - '§fDoğma: §c{min_mobs}§7-§c{max_mobs}'
+    - '§fGecikme: §c{delay}§7sn'
+    - ''
+    - '§c☀ §fDepo:'
+    - '§fEşyalar: §c{current_items}§7/§c{max_items}'
+    - '§fDoluluk: §c{percent_storage_decimal}%'
+    - ''
+    - '§c☀ §fTecrübe Puanı:'
+    - '§fBiriken: §c{current_exp}§7/§c{max_exp} §7xp'
+    - '§fDoluluk: §c{percent_exp_decimal}%'
+    - ''
+    - '§c☀ §fSatış Değeri: §c${total_sell_price}'
+storage_view_filter:
+  name: '&#FF1F1FDepo Filtresi'
+  lore:
+  - ''
+  - '&fGörünüm: &#FF1F1F{item_name}'
+  all: Tümü

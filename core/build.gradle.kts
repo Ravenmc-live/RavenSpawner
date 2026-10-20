@@ -125,3 +125,23 @@ tasks.processResources {
         expand(props)
     }
 }
+
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.12.2")
+    testImplementation("org.mockito:mockito-core:5.20.0")
+    testImplementation(files(configurations.compileClasspath))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.12.2")
+}
+
+tasks.test {
+    useJUnitPlatform()
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
+}
+
+configurations.testImplementation {
+    setExtendsFrom(emptyList())
+}
+configurations.testRuntimeOnly {
+    setExtendsFrom(emptyList())
+}
